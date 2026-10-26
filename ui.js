@@ -1,10 +1,12 @@
-// ui.js - the step/token counters and the little "+1" popups.
+// ui.js - counters, floating text on the canvas, and the toast message.
 
 const UI = {
   stepsEl: document.getElementById("steps"),
   tokensEl: document.getElementById("tokens"),
   hintEl: document.getElementById("hint"),
-  floaters: [], // active "+1" popups drawn on the canvas
+  toastEl: document.getElementById("toast"),
+  toastTimer: null,
+  floaters: [], // active popups drawn on the canvas
 
   updateCounters(state) {
     this.stepsEl.textContent = state.steps;
@@ -15,15 +17,23 @@ const UI = {
     this.hintEl.classList.add("hidden");
   },
 
-  // Show a rising, fading message above the player
-  popup(text, x, y) {
-    this.floaters.push({ text, x, y, life: 1 });
+  // Rising, fading text on the canvas. life = seconds-ish it stays visible.
+  popup(text, x, y, life = 1) {
+    this.floaters.push({ text, x, y, life });
+  },
+
+  // Small message at the top of the game (e.g. "Journal updated")
+  toast(text) {
+    this.toastEl.textContent = text;
+    this.toastEl.classList.add("show");
+    clearTimeout(this.toastTimer);
+    this.toastTimer = setTimeout(() => this.toastEl.classList.remove("show"), 3000);
   },
 
   update(dt) {
     for (const f of this.floaters) {
       f.life -= dt * 0.8;
-      f.y -= dt * 30;
+      f.y -= dt * 20;
     }
     this.floaters = this.floaters.filter((f) => f.life > 0);
   },
@@ -32,7 +42,7 @@ const UI = {
     ctx.font = "22px Georgia, serif";
     ctx.textAlign = "center";
     for (const f of this.floaters) {
-      ctx.globalAlpha = Math.max(0, f.life);
+      ctx.globalAlpha = Math.max(0, Math.min(1, f.life));
       ctx.fillStyle = "#f2d675";
       ctx.fillText(f.text, f.x, f.y);
     }

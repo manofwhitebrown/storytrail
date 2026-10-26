@@ -13,10 +13,27 @@
       <div class="stats">
         <span>Steps <strong id="steps">0</strong></span>
         <span>Tokens <strong id="tokens">0</strong></span>
+        <button id="journalBtn" type="button">Journal</button>
       </div>
     </header>
 
-    <canvas id="game" width="800" height="450" aria-label="Walking game. Tap or press space to take a step."></canvas>
+    <div class="stage">
+      <canvas id="game" width="800" height="450" aria-label="Walking game. Tap or press space to take a step."></canvas>
+
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+      <!-- Part 4: events and choices appear here -->
+      <section id="eventPanel" class="panel event hidden" role="dialog" aria-modal="true" aria-labelledby="eventText"></section>
+
+      <!-- Part 5: journal screen -->
+      <section id="journal" class="panel journal hidden" role="dialog" aria-modal="true" aria-label="Journal">
+        <div class="panel-head">
+          <h2>Journal</h2>
+          <button id="journalClose" type="button">Close</button>
+        </div>
+        <ol id="journalList"></ol>
+      </section>
+    </div>
 
     <p class="hint" id="hint">Tap the scene, or press space, to take a step.</p>
   </main>
@@ -25,6 +42,8 @@
   <script src="src/world.js"></script>
   <script src="src/player.js"></script>
   <script src="src/ui.js"></script>
+  <script src="src/events.js"></script>
+  <script src="src/story.js"></script>
   <script src="src/main.js"></script>
 </body>
 </html>
