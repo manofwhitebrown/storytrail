@@ -1,0 +1,73 @@
+:root {
+  --night: #141b33;
+  --dusk: #1f2a4d;
+  --mist: #dfe8ee;
+  --gold: #f2d675;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--night);
+  color: var(--mist);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.game {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.hud h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: normal;
+  letter-spacing: 0.02em;
+}
+
+.stats {
+  display: flex;
+  gap: 20px;
+  font-size: 1rem;
+}
+
+.stats strong {
+  color: var(--gold);
+  font-weight: normal;
+  font-variant-numeric: tabular-nums;
+  margin-left: 4px;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  background: var(--dusk);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+canvas:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.hint {
+  text-align: center;
+  opacity: 0.7;
+  transition: opacity 1s;
+}
+
+.hint.hidden { opacity: 0; }
