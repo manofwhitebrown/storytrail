@@ -1,0 +1,11 @@
+/* themes.css - Part 12. The page itself shifts with the time of day (body[data-phase]) and the season. */
+body[data-phase="dawn"]  { --page-bg: #2a2d52; --panel-bg: rgba(38, 36, 66, 0.95);  --gold: #f6c98a; }
+body[data-phase="noon"]  { --page-bg: #27406b; --panel-bg: rgba(31, 48, 82, 0.95);  --gold: #f5e08a; }
+body[data-phase="dusk"]  { --page-bg: #2b2547; --panel-bg: rgba(40, 31, 64, 0.95);  --gold: #f2c27a; }
+body[data-phase="night"] { --page-bg: #0f1530; --panel-bg: rgba(12, 17, 38, 0.96);  --gold: #f2d675; }
+
+/* seasons only change the wording color of small highlights */
+body[data-season="spring"] .phase { color: #f6b8cf; }
+body[data-season="summer"] .phase { color: #bfe3a0; }
+body[data-season="autumn"] .phase { color: #e8a860; }
+body[data-season="winter"] .phase { color: #bfe3f5; }

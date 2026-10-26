@@ -1,0 +1,80 @@
+/* hud.css - the bar on top, the toast, tutorial tip and floating prompts */
+.hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-bottom: 12px;
+}
+.hud h1 { margin: 0; font-size: 1.6rem; font-weight: normal; letter-spacing: 0.02em; }
+
+.stats { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 18px; font-size: 1rem; }
+.stats strong { color: var(--gold); font-weight: normal; font-variant-numeric: tabular-nums; margin-left: 4px; }
+.phase { opacity: 0.8; font-style: italic; }
+
+#journalBtn[data-unread="true"]::after { content: " \2022"; color: var(--gold); }
+
+.toast {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(20, 27, 51, 0.9);
+  border: 1px solid var(--gold);
+  border-radius: 20px;
+  padding: 6px 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+  white-space: nowrap;
+  max-width: 94%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 30;
+}
+.toast.show { opacity: 1; }
+
+.tutorial {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  width: min(92%, 460px);
+  background: var(--panel-bg);
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  padding: 10px 14px;
+  line-height: 1.45;
+  z-index: 25;
+}
+.tutorial p { margin: 0 0 8px; }
+.tutorial button { font-size: 0.9rem; padding: 3px 10px; opacity: 0.85; }
+
+.prompt {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  background: var(--panel-bg);
+  border-color: var(--gold);
+  z-index: 20;
+}
+
+.fade {
+  position: absolute;
+  inset: 0;
+  background: #05070f;
+  border-radius: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 40;
+}
+.fade.on { opacity: 1; }
+
+.pulse { animation: pulse 1.6s ease-in-out infinite; }
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(242, 214, 117, 0.6); }
+  50% { box-shadow: 0 0 0 8px rgba(242, 214, 117, 0); }
+}

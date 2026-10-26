@@ -1,0 +1,21 @@
+{
+  "_note": "slot: where it can sit in your camp (hang / ground / shelf). foundIn: biomes where a companion may bring it as a gift.",
+  "items": [
+    { "id": "wind-chime",   "name": "Wind Chime",       "emoji": "🎐", "slot": "hang",   "note": "Slightly out of tune, which suits it.", "foundIn": ["meadow"] },
+    { "id": "paper-lantern","name": "Paper Lantern",    "emoji": "🏮", "slot": "hang",   "note": "It throws a soft, warm light.", "foundIn": [] },
+    { "id": "tiny-bell",    "name": "Tiny Bell",        "emoji": "🔔", "slot": "hang",   "note": "From a shrine nobody remembers building.", "foundIn": ["forest"] },
+    { "id": "star-lantern", "name": "Star Lantern",     "emoji": "🌟", "slot": "hang",   "note": "Holds a little of the moon's light.", "foundIn": [] },
+    { "id": "patchwork-rug","name": "Patchwork Rug",    "emoji": "🧶", "slot": "ground", "note": "Every patch is from somewhere different.", "foundIn": [] },
+    { "id": "cactus-pot",   "name": "Cactus in a Pot",  "emoji": "🌵", "slot": "ground", "note": "Prickly, loyal, needs almost nothing.", "foundIn": ["desert"] },
+    { "id": "river-stone",  "name": "River Stone",      "emoji": "🪨", "slot": "ground", "note": "Smooth enough to hold like a thought.", "foundIn": ["forest", "mountains"] },
+    { "id": "tin-mug",      "name": "Grandmother's Tin Mug", "emoji": "☕", "slot": "shelf", "note": "Still smells faintly of tea.", "foundIn": [] },
+    { "id": "seashell",     "name": "Spiral Seashell",  "emoji": "🐚", "slot": "shelf",  "note": "Hold it to your ear. The coast is still in there.", "foundIn": ["coast"] },
+    { "id": "flower-frame", "name": "Pressed-Flower Frame", "emoji": "🖼️", "slot": "shelf", "note": "A frame for the best page of the journal.", "foundIn": ["meadow"] },
+    { "id": "feather",      "name": "Long Feather",     "emoji": "🪶", "slot": "shelf",  "note": "Dropped by something that didn't need it.", "foundIn": ["mountains", "coast"] },
+    { "id": "lavender",     "name": "Dried Lavender",   "emoji": "💐", "slot": "shelf",  "note": "Smells like a quiet afternoon.", "foundIn": ["meadow"] },
+    { "id": "map-scrap",    "name": "Scrap of Old Map", "emoji": "🗺️", "slot": "shelf",  "note": "Someone else was looking for something too.", "foundIn": [] },
+    { "id": "sun-stone",    "name": "Sun Stone",        "emoji": "🔶", "slot": "shelf",  "note": "Warm to the touch, long after sunset.", "foundIn": ["desert"] },
+    { "id": "acorn",        "name": "Acorn",            "emoji": "🌰", "slot": "shelf",  "note": "A whole forest, patiently waiting.", "foundIn": ["forest", "meadow"] },
+    { "id": "snow-globe",   "name": "Little Snow Globe","emoji": "🔮", "slot": "shelf",  "note": "A tiny storm that stays in its place.", "foundIn": ["snowfields"] }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "_note": "Add a species here and it shows up in the offer. likes/dislikes change their mood; quirks are little things they do. {name} is replaced with the name you gave them.",
+  "species": [
+    {
+      "id": "fox", "label": "russet fox kit", "choice": "The russet fox kit", "color": "#c8683a", "belly": "#f1dcc0",
+      "names": ["Ember", "Maple", "Rusty", "Wick"],
+      "traits": ["curious", "bold"],
+      "likes": { "weather": ["snow", "wind"], "biome": ["forest", "snowfields"], "time": ["dusk"] },
+      "dislikes": { "weather": ["rain"] },
+      "gifts": ["acorn", "river-stone", "feather"],
+      "quirks": {
+        "happy":   ["{name} spins in a circle, then pretends that never happened.", "{name} bounds ahead and doubles back, twice.", "{name} yips at nothing, delighted."],
+        "content": ["{name} sniffs every third pebble.", "{name} trots along with an official air.", "{name} carries a stick, then trades it for a better stick."],
+        "uneasy":  ["{name} shakes out their fur and sighs.", "{name} walks very close to your boots."],
+        "night":   ["{name}'s eyes catch your lantern light like two small coins."]
+      }
+    },
+    {
+      "id": "owl", "label": "round-eyed owlet", "choice": "The round-eyed owlet", "color": "#8a7a62", "belly": "#e5dcc8",
+      "names": ["Hush", "Pip", "Mothwing", "Sable"],
+      "traits": ["sleepy", "wise"],
+      "likes": { "time": ["night", "dusk"], "weather": ["mist", "fireflies"], "biome": ["forest", "mountains"] },
+      "dislikes": { "time": ["noon"], "weather": ["wind"] },
+      "gifts": ["feather", "tiny-bell", "star-lantern"],
+      "quirks": {
+        "happy":   ["{name} turns their head all the way round, just to show you.", "{name} hoots once, softly, like a full stop."],
+        "content": ["{name} rides along, blinking slowly at the scenery.", "{name} ruffles up, then settles."],
+        "uneasy":  ["{name} dozes off mid-flutter, then startles awake, offended.", "{name} glares at the daylight."],
+        "night":   ["{name} is wide awake and extremely pleased about it."]
+      }
+    },
+    {
+      "id": "hare", "label": "long-eared hare", "choice": "The long-eared hare", "color": "#b9a894", "belly": "#f4efe6",
+      "names": ["Clover", "Bramble", "Thimble", "Juniper"],
+      "traits": ["gentle", "skittish"],
+      "likes": { "biome": ["meadow", "coast"], "weather": ["clear"], "time": ["dawn"] },
+      "dislikes": { "time": ["night"], "weather": ["mist"] },
+      "gifts": ["lavender", "acorn", "flower-frame"],
+      "quirks": {
+        "happy":   ["{name} does a small, joyful hop that is not really necessary.", "{name} stands tall, ears up, listening to the whole sky."],
+        "content": ["{name} nibbles a leaf with great seriousness.", "{name} thumps once, as if making a point."],
+        "uneasy":  ["{name} flattens their ears and stays close.", "{name} startles at their own shadow."],
+        "night":   ["{name} keeps one ear turned toward every sound."]
+      }
+    }
+  ]
+}

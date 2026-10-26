@@ -1,0 +1,79 @@
+{
+  "_note": "Pages unlock when your token total reaches `tokens` (and, if a page has `landmark`, once you have reached that landmark). Keep `tokens` increasing from page to page across chapters. Roughly 16 tokens = one place on the road.",
+  "chapters": [
+    {
+      "id": "ch01", "title": "The Road Begins",
+      "pages": [
+        { "id": "road-begins", "tokens": 1, "title": "The Road Begins",
+          "text": "I left before sunrise. The house was quiet, and the lantern on the table still held its last bit of oil." },
+        { "id": "grandmothers-map", "tokens": 3, "title": "Grandmother's Map",
+          "text": "She drew it on the back of a bakery receipt: a road, a river, and a small star near the sea. 'You'll know it when you see it,' she said." },
+        { "id": "small-kindnesses", "tokens": 6, "title": "Small Kindnesses",
+          "text": "A stranger gave me bread today. I have started to notice that the road is full of people who want to help." },
+        { "id": "sound-of-pines", "tokens": 10, "title": "The Sound of Pines",
+          "text": "The forest is louder at night than I expected. I stopped counting steps and started counting birds." }
+      ]
+    },
+    {
+      "id": "ch02", "title": "Grandmother's Map",
+      "pages": [
+        { "id": "grass-remembers", "tokens": 20, "title": "Where the Grass Remembers",
+          "text": "The meadow is the first place the road has ever felt wide. The grass leans in one direction, and I realized it is the direction I am walking. Someone has been here before me, or the wind is only polite." },
+        { "id": "above-the-clouds", "tokens": 36, "title": "Above the Clouds",
+          "text": "The air is thin up here. I looked back and could see the whole green valley, small as a handkerchief." },
+        { "id": "what-i-left-behind", "tokens": 44, "title": "What I Left Behind",
+          "text": "I packed too many worries. The mountain took most of them, one cold step at a time." }
+      ]
+    },
+    {
+      "id": "ch03", "title": "The Long Quiet",
+      "pages": [
+        { "id": "white-silence", "tokens": 54, "title": "White Silence",
+          "text": "Snow takes the edges off everything, even sound. I said my name out loud just to hear where it landed." },
+        { "id": "heat-and-stillness", "tokens": 70, "title": "Heat and Stillness",
+          "text": "The desert keeps its own time. Noon lasts a long while here. I drank, I rested, and I stopped apologizing to the road for being slow." },
+        { "id": "small-things-i-kept", "tokens": 78, "title": "Small Things I Kept",
+          "text": "I have been keeping small things: a feather, a stone, a pressed flower. None of them are worth anything. All of them are why my pack feels heavier and lighter at once." }
+      ]
+    },
+    {
+      "id": "ch04", "title": "The Lighthouse",
+      "pages": [
+        { "id": "salt-on-the-wind", "tokens": 88, "title": "Salt on the Wind",
+          "text": "I can smell the sea. The star on the map must be close now." },
+        { "id": "the-lighthouse", "tokens": 98, "landmark": "lighthouse", "title": "The Lighthouse",
+          "text": "It was her lighthouse all along. The lamp inside is still warm. I think she wanted me to find the way, not just the place." }
+      ]
+    }
+  ],
+
+  "endings": [
+    {
+      "id": "kind", "title": "The Lamp That Stayed Lit",
+      "paragraphs": [
+        "The keeper took one look at you and put the kettle on. 'She always said someone kind would come,' she said. 'She left the lamp in my care for exactly that person.'",
+        ["Up close, the lamp is smaller than you expected, and warmer. The road was never really about the star on the map. It was about every hand you shook, every small creature you helped, every cup you shared on the way here.", { "if": { "companion": true }, "text": "{companion} curls up beside the lamp as if it has always belonged there." }],
+        "Grandmother's last note is tucked inside the lantern door: 'The way was the gift, {name}. Keep it lit for the next one.' You don't cry, exactly. The lamp flickers, as if politely looking away.",
+        "Outside, the road is still there, winding on past the sea. It looks different now. It looks like something you're allowed to keep walking."
+      ]
+    },
+    {
+      "id": "curious", "title": "The Other Side of the Map",
+      "paragraphs": [
+        "In the lamp room, the keeper unfolds Grandmother's receipt and turns it over. There is more writing on the back, in pencil so faint you had to be exactly this close, and exactly this stubborn, to read it.",
+        ["'Past the sea, a second star,' it says. 'You always were the one who looked behind things, {name}.'", { "if": { "companion": true }, "text": "{companion} paws at the paper as if to say: obviously." }],
+        "You don't know what waits at the second star. Nobody does. The keeper hands you a spare lantern and the heel of a loaf, and doesn't ask you to stay. 'Go and look,' she says. 'I'll keep the lamp warm.'",
+        "The road is still open. It always was. But now it has a direction you chose."
+      ]
+    },
+    {
+      "id": "restful", "title": "Warm by the Window",
+      "paragraphs": [
+        "You expected a grand arrival. Instead the keeper pulled a second chair up to the window and said, 'Sit. Nothing here is in a hurry.'",
+        ["So you sat. The sea did its slow work on the rocks. The lamp turned its long arm across the dark. Somewhere in the quiet you noticed that the worries you left on the mountain hadn't followed you.", { "if": { "companion": true }, "text": "{companion} falls asleep against your boot." }],
+        "Grandmother used to say a journey isn't finished until you're comfortable enough to stop for tea. 'Welcome home,' the keeper says, though it was never your house.",
+        "In the morning the road will still be there, patient as ever. But tonight there is tea, and the lamp, and nowhere you have to be."
+      ]
+    }
+  ]
+}

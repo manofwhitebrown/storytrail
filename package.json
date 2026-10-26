@@ -1,0 +1,15 @@
+{
+  "name": "storytrail",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "A cozy walking game: tap to step, collect tokens, unlock a story.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "_note": "Things you can find. `when` lists where they can be spotted just by walking; items with no `when` can only be found through events, secrets or people.",
+  "birds": [
+    { "id": "wren",      "name": "Winter Wren",      "icon": "🐦", "note": "Tiny, loud, utterly unafraid.", "when": { "biome": ["forest"] } },
+    { "id": "robin",     "name": "Robin",            "icon": "🐦", "note": "Always the first to say good morning.", "when": { "biome": ["forest", "meadow"], "time": ["dawn", "noon"] } },
+    { "id": "lark",      "name": "Skylark",          "icon": "🐤", "note": "A song climbing a staircase of air.", "when": { "biome": ["meadow"], "time": ["dawn", "noon"] } },
+    { "id": "nightjar",  "name": "Nightjar",         "icon": "🦉", "note": "You hear it long before you see it.", "when": { "biome": ["meadow", "forest", "desert"], "time": ["night"] } },
+    { "id": "finch",     "name": "Mountain Finch",   "icon": "🐦", "note": "Wears the colors of the rocks.", "when": { "biome": ["mountains"], "time": ["noon", "dawn"] } },
+    { "id": "snowy-owl", "name": "Snowy Owl",        "icon": "🦉", "note": "Silent as the field it hunts in.", "when": { "biome": ["snowfields"], "time": ["night", "dusk"] } },
+    { "id": "roadrunner","name": "Roadrunner",       "icon": "🐦", "note": "Late for something wonderful.", "when": { "biome": ["desert"], "time": ["noon", "dawn"] } },
+    { "id": "heron",     "name": "Grey Heron",       "icon": "🦢", "note": "Stands so still the tide goes around it.", "when": { "biome": ["coast"], "time": ["dawn", "dusk"] } },
+    { "id": "gull",      "name": "Herring Gull",     "icon": "🕊️", "note": "Opinionated. Always.", "when": { "biome": ["coast"], "time": ["noon", "dawn"] } }
+  ],
+  "flowers": [
+    { "id": "bluebell",       "name": "Bluebell",        "icon": "🪻", "note": "A whole hillside, ringing silently.", "when": { "biome": ["forest"], "season": ["spring"] } },
+    { "id": "wild-rose",      "name": "Wild Rose",       "icon": "🌹", "note": "Pretty, and perfectly aware of its thorns.", "when": { "biome": ["meadow", "forest"], "season": ["summer", "spring"] } },
+    { "id": "clover",         "name": "Four-Leaf Clover","icon": "🍀", "note": "Rarer than it should be.", "when": { "biome": ["meadow"] } },
+    { "id": "sea-thrift",     "name": "Sea Thrift",      "icon": "🌸", "note": "Grows exactly where nothing else will.", "when": { "biome": ["coast"] } },
+    { "id": "edelweiss",      "name": "Edelweiss",       "icon": "🌼", "note": "Fuzzy, pale, and very proud of the altitude.", "when": { "biome": ["mountains"] } },
+    { "id": "desert-marigold","name": "Desert Marigold", "icon": "🌻", "note": "A little sun, kept for later." },
+    { "id": "frost-aster",    "name": "Frost Aster",     "icon": "❄️", "note": "Blooms when everyone else has given up.", "when": { "biome": ["snowfields"] } },
+    { "id": "moon-lily",      "name": "Moon Lily",       "icon": "🌙", "note": "Only opens for people who are awake." }
+  ],
+  "songs": [
+    { "id": "rain-on-leaves", "name": "Rain on Leaves",   "icon": "🎵", "note": "A thousand tiny drums, all in agreement.", "when": { "weather": ["rain"], "biome": ["forest", "meadow", "mountains"] } },
+    { "id": "wind-in-pines",  "name": "Wind in the Pines","icon": "🎵", "note": "The forest humming under its breath.", "when": { "weather": ["wind"], "biome": ["forest", "mountains"] } },
+    { "id": "slow-waves",     "name": "Slow Waves",       "icon": "🎵", "note": "The sea keeps one long note and never loses it.", "when": { "biome": ["coast"] } },
+    { "id": "crickets",       "name": "Evening Crickets", "icon": "🎵", "note": "Tiny, patient, and surprisingly in tune.", "when": { "time": ["night", "dusk"], "biome": ["meadow", "forest", "desert"] } },
+    { "id": "sand-whisper",   "name": "Whisper of Sand",  "icon": "🎵", "note": "The dunes, telling each other a secret.", "when": { "weather": ["wind"], "biome": ["desert"] } },
+    { "id": "chime-song",     "name": "The Chime Song",   "icon": "🎶", "note": "Out of tune, which is why you remember it." },
+    { "id": "travelers-hum",  "name": "The Old Traveler's Hum", "icon": "🎶", "note": "A tune with no beginning, only a middle." },
+    { "id": "keepers-lullaby","name": "The Keeper's Lullaby",   "icon": "🎶", "note": "Sung to the lamp, and to anyone listening." },
+    { "id": "aurora-hum",     "name": "The Aurora's Hum", "icon": "🎶", "note": "Too high to be real. Too steady to be imagined." }
+  ]
+}
