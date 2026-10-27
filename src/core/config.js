@@ -45,8 +45,33 @@ export const CONFIG = Object.freeze({
   SIGHTING_CHANCE: 0.4,
   MAP_SEGMENT_STEPS: 10,
 
+  // ---- Audio (Part 23) ----
+  MUSIC_NOTE_GAP: [2.4, 7],  // seconds between melody notes (shorter at midday, longer at night)
+  MUSIC_CHORD_SECONDS: 22,   // how long each pad chord lasts before it drifts to the next
+  SFX_MIN_GAP_MS: 45,        // never fire two sound effects closer together than this
+
+  // ---- Wellbeing (Part 24) ----
+  REST_REMINDER_MINUTES: 30, // default; the player can change or switch off (Menu -> Wellbeing)
+  REST_IDLE_SECONDS: 120,    // no tap for this long = not "walking", the rest timer pauses
+  WELCOME_BACK_HOURS: 18,    // away at least this long = a warm welcome
+  WELCOME_BACK_TOKENS: 2,    // a flat gift. It never grows with time away, so staying away is never "rewarded"
+  QUIET_EVENT_FACTOR: 2,     // quiet mode: road events come this many times less often
+
+  // ---- Goals (Part 25b: quests) ----
+  MAX_ACTIVE_ERRANDS: 3,
+  DAILY_TOKENS: 1,           // one small thing a day. No streaks, nothing lost by missing days.
+  SEASONAL_TOKENS: 3,
+
+  // ---- Social (Part 25) ----
+  VISIT_TOKENS: 1,           // for sitting by a friend's fire (once per camp)
+  NAME_SAFE_MAX: 16,
+
+  // ---- Privacy (Part 27) ----
+  ANALYTICS_ENDPOINT: "",    // leave empty = NOTHING is ever sent anywhere (the default).
+  ANALYTICS_FLUSH_MS: 30000,
+
   // ---- Saving ----
   SAVE_KEY: "storytrail.save",
-  SAVE_VERSION: 5,
+  SAVE_VERSION: 6,
   AUTOSAVE_MS: 15000,
 });

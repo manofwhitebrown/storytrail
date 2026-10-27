@@ -6,7 +6,7 @@ import { CONFIG } from "../core/config.js";
 import { bus } from "../core/event-bus.js";
 import { state } from "../core/state.js";
 import { Sound } from "../audio/sound.js";
-import { clamp, prefersReducedMotion, rand, weightedPick } from "../core/util.js";
+import { calmMotion, clamp, rand, weightedPick } from "../core/util.js";
 import { biomeAt } from "./biomes/index.js";
 import { Seasons } from "./seasons.js";
 import { TimeOfDay } from "./time-of-day.js";
@@ -29,6 +29,7 @@ export const Weather = {
     this.intensity = 1;
     this.stepsLeft = Math.round(rand(CONFIG.WEATHER_MIN_STEPS, CONFIG.WEATHER_MAX_STEPS));
     this.populate();
+    bus.on("calm:change", () => this.populate()); // quiet mode / reduced motion thins the rain and snow right away
   },
 
   choose() {
@@ -54,7 +55,7 @@ export const Weather = {
   },
 
   populate() {
-    const lite = prefersReducedMotion() ? 0.3 : 1;
+    const lite = calmMotion() ? 0.3 : 1;
     const make = (n, fn) => Array.from({ length: Math.round(n * lite) }, fn);
     if (this.type === "rain") this.parts = make(110, () => ({ x: rand(0, W), y: rand(0, H), v: rand(600, 900), len: rand(10, 20) }));
     else if (this.type === "snow") this.parts = make(90, () => ({ x: rand(0, W), y: rand(0, H), v: rand(30, 70), r: rand(1, 3), ph: rand(0, 6) }));

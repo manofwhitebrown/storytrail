@@ -1,9 +1,12 @@
 // hud.js - counters, floating text on the canvas, and the toast message.
+// In quiet mode (Part 24) ambient toasts and popups are skipped. Pass { feedback: true } (toast) or
+// { always: true } (popup) for the few that must always show.
 
 import { state } from "../core/state.js";
 
 let stepsEl, tokensEl, hintEl, toastEl, phaseEl, journalBtn;
 let toastTimer = null;
+const quietOn = () => !!state.wellbeing?.quiet;
 let floaters = []; // active popups drawn on the canvas
 
 export const HUD = {
@@ -33,11 +36,14 @@ export const HUD = {
 
   // Rising, fading text on the canvas. life = seconds-ish it stays visible.
   popup(text, x, y, life = 1, opts = {}) {
+    if (!opts.always && quietOn()) return;
     floaters.push({ text, x, y, life, size: opts.size || 22, color: opts.color || "#f2d675" });
   },
 
   // Small message at the top of the game (e.g. "Journal updated")
-  toast(text) {
+  // opts.feedback: true = a direct answer to something the player just did ("Saved"), so it's always shown
+  toast(text, opts = {}) {
+    if (!opts.feedback && quietOn()) return; // quiet mode keeps ambient notices out of the way (everything is still in the journal)
     toastEl.textContent = text;
     toastEl.classList.add("show");
     clearTimeout(toastTimer);

@@ -17,7 +17,16 @@ export function createDefaultState() {
 
     // traveler (Parts 11, 14)
     player: { name: "Traveler", coat: "teal", hat: "cap", lantern: "brass" },
-    settings: { timeMode: "real", sound: true }, // timeMode: "real" | "game"
+    settings: {
+      timeMode: "real",                          // "real" | "game"
+      sound: true,
+      volume: { music: 0.6, ambience: 1, sfx: 0.8 }, // Part 23
+      textSize: "normal",                        // normal | large | xlarge     (Part 27)
+      contrast: "normal",                        // normal | high
+      motion: "system",                          // system | reduce
+      haptics: true,
+      lang: "en",
+    },
     time: { game: 0.3 },                         // in-game clock, 0..1 of a day
 
     // story (Parts 18-19)
@@ -44,6 +53,32 @@ export function createDefaultState() {
     achievements: [],
 
     stats: { tokensEarned: 0, nightSteps: 0, eventsDone: 0 },
+
+    // wellbeing (Part 24)
+    wellbeing: {
+      quiet: false,                              // quiet mode
+      restReminders: true,
+      restEveryMin: 30,                          // 0 = never
+      lastSeen: 0,                               // epoch ms; 0 = never (new player)
+      lastSession: null,                         // { minutes, steps, tokens, found: [...] }
+      sessions: 0,
+      returns: 0,                                // times welcomed back
+    },
+
+    // social (Part 25): all of it stays on this device unless the player shares a link
+    social: { postcards: 0, visited: [] },       // visited: ids of camps you've sat by
+
+    // goals (Part 25b)
+    goals: {
+      active: [],                                // errand ids taken on (max CONFIG.MAX_ACTIVE_ERRANDS)
+      done: [],
+      progress: {},                              // errand id -> count
+      daily: { date: "", id: "", n: 0, done: false },
+      seasonal: { key: "", done: [], progress: {} },
+    },
+
+    // privacy (Part 27)
+    privacy: { analytics: "unset" },             // unset | yes | no
   };
 }
 

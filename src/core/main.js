@@ -1,6 +1,9 @@
 // main.js - boots the game, handles input, runs the loop.
 // Every other file does one job and talks through `bus` (see event-bus.js).
 
+import { AdaptiveMusic } from "../audio/adaptive-music.js";
+import { Ambience } from "../audio/ambience.js";
+import { SFX } from "../audio/sfx.js";
 import { Sound } from "../audio/sound.js";
 import { Companions } from "../characters/companions/companions.js";
 import { Customization } from "../characters/customization.js";
@@ -21,6 +24,13 @@ import { Onboarding } from "../ui/onboarding.js";
 import { Panels } from "../ui/panels.js";
 import { Settings } from "../ui/settings.js";
 import { Transitions } from "../ui/transitions.js";
+import { Accessibility } from "../ui/accessibility.js";
+import { Haptics } from "../ui/haptics.js";
+import { initNative } from "./native.js";
+import { QuietMode } from "../wellbeing/quiet-mode.js";
+import { RestReminders } from "../wellbeing/rest-reminders.js";
+import { Session, SessionSummary } from "../wellbeing/session-summary.js";
+import { WelcomeBack } from "../wellbeing/welcome-back.js";
 import { BIOMES, biomeIndexAt } from "../world/biomes/index.js";
 import { Landmarks } from "../world/landmarks.js";
 import { MapData } from "../world/map.js";
@@ -46,7 +56,7 @@ function announceBiome() {
   const i = biomeIndexAt(state.steps);
   if (i !== shownBiome) {
     shownBiome = i;
-    HUD.popup(BIOMES[i].name, canvas.width / 2, 90, 3);
+    HUD.popup(BIOMES[i].name, canvas.width / 2, 90, 3, { always: true });
     bus.emit("biome:enter", BIOMES[i]);
   }
 }
@@ -113,6 +123,8 @@ function loop(now) {
   Player.update(dt);
   Companions.update(dt);
   Camp.update(dt);
+  Ambience.update(dt);
+  AdaptiveMusic.update(dt);
   HUD.update(dt);
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -148,10 +160,23 @@ function boot() {
   Unlocks.init();
   Achievements.init();
 
+  Ambience.init();
+  AdaptiveMusic.init();
+  SFX.init();
+
   JournalUI.init();
   MapUI.init();
   Settings.init();
   Onboarding.init();
+
+  Accessibility.init();
+  Haptics.init();
+
+  // Wellbeing (Part 24). SessionSummary goes first: its "going away" listeners must run before save.js's.
+  SessionSummary.init();
+  QuietMode.init();
+  RestReminders.init();
+  WelcomeBack.init();
 
   bus.on("time:phase", ({ label }) => HUD.setPhase(label));
   HUD.setPhase(TimeOfDay.label());
@@ -162,10 +187,12 @@ function boot() {
 
   startAutosave();
   Onboarding.start();
+  initNative();
+  WelcomeBack.check();
   requestAnimationFrame(loop);
 
   // Handy for testing: open the game with ?debug and use window.__storytrail in the console
-  if (new URLSearchParams(location.search).has("debug")) window.__storytrail = { state, bus, save, takeStep };
+  if (new URLSearchParams(location.search).has("debug")) if (import.meta.env.DEV) window.__storytrail = { state, bus, save, takeStep, Sound, Ambience, AdaptiveMusic, Session, SessionSummary, WelcomeBack, RestReminders, QuietMode, Panels };
 }
 
 boot();

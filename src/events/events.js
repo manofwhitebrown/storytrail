@@ -24,12 +24,15 @@ let panel = null;
 let pending = null;   // the event waiting to be shown
 let lastId = null;
 
+// Quiet mode (Part 24) makes road events less frequent
+const eventEvery = () => CONFIG.EVENT_EVERY_STEPS * (state.wellbeing.quiet ? CONFIG.QUIET_EVENT_FACTOR : 1);
+
 const available = (ev) => meets(ev.requires) && !(ev.once && state.eventsSeen.includes(ev.id)) && ev.id !== lastId;
 
 export const Events = {
   init() {
     panel = Panels.create("event", { className: "event", label: "Something on the road", dismissable: false, onOpen: () => this.render() });
-    bus.on("step", (steps) => { if (steps % CONFIG.EVENT_EVERY_STEPS === 0) this.start(); });
+    bus.on("step", (steps) => { if (steps % eventEvery() === 0) this.start(); });
     bus.on("landmark:found", (lm) => { if (lm.npc) this.startNpc(npcById(lm.npc)); });
   },
 

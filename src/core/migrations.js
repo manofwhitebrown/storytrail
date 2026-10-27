@@ -51,6 +51,15 @@ const UPGRADES = {
     s.achievements ??= [];
     return s;
   },
+
+  // v5 -> v6 (Parts 23-27: audio levels, wellbeing, social, goals, accessibility, privacy)
+  5(s) {
+    // Everything new is filled from the defaults afterwards. The only decision to make here is
+    // "lastSeen": 0 means "never", so existing players are not greeted as if they'd been away.
+    s.wellbeing = { lastSeen: 0, ...(s.wellbeing || {}) };
+    s.settings = { ...(s.settings || {}) };
+    return s;
+  },
 };
 
 export function migrate(raw) {

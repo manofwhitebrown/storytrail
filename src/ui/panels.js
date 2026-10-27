@@ -54,7 +54,7 @@ export const Panels = {
     current = id;
     reg.onOpen?.(opts);
     reg.el.classList.remove("hidden");
-    const first = reg.el.querySelector("[data-autofocus]") || reg.el.querySelector("button, input");
+    const first = reg.el.querySelector("[data-autofocus]") || reg.el.querySelector("button, input, summary");
     first?.focus();
     bus.emit("panel:open", id);
   },
@@ -87,7 +87,7 @@ export const Panels = {
 };
 
 function trapFocus(e, el) {
-  const items = [...el.querySelectorAll("button, input, [tabindex]:not([tabindex='-1'])")]
+  const items = [...el.querySelectorAll("button, input, select, textarea, summary, [tabindex]:not([tabindex='-1'])")]
     .filter((n) => !n.disabled && n.offsetParent !== null);
   if (!items.length) return;
   const first = items[0];

@@ -121,12 +121,12 @@ export const Camp = {
       Inventory.give(current, 1, { silent: true });
     } else if (selected) {
       const item = Inventory.get(selected);
-      if (item.slot !== slot.type) { HUD.toast(`The ${item.name} would rather ${TYPE_WORD[item.slot]}.`); return; }
+      if (item.slot !== slot.type) { HUD.toast(`The ${item.name} would rather ${TYPE_WORD[item.slot]}.`, { feedback: true }); return; }
       if (!Inventory.take(selected)) return;
       state.camp.slots[slot.id] = selected;
       if (!Inventory.count(selected)) selected = null;
     } else {
-      HUD.toast("Pick something from your pack first");
+      HUD.toast("Pick something from your pack first", { feedback: true });
       return;
     }
     this.renderBar();

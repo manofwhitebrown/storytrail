@@ -1,5 +1,7 @@
 // util.js - small helpers shared by many files.
 
+import { state } from "./state.js";
+
 export const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 export const lerp = (a, b, t) => a + (b - a) * t;
 
@@ -66,5 +68,10 @@ export function rgba(c, a) {
   return `rgba(${r},${g},${b},${a})`;
 }
 
+// "Less movement" = the device asks for it OR the player chose it (Menu -> Accessibility)
 export const prefersReducedMotion = () =>
-  typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  state.settings?.motion === "reduce" ||
+  (typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+// "Calm" = less movement for any reason, including quiet mode (Part 24). Used to thin out particles.
+export const calmMotion = () => prefersReducedMotion() || !!state.wellbeing?.quiet;

@@ -2,7 +2,8 @@
 // blossom in spring, deep green in summer, orange leaves in autumn, frost in winter.
 
 import { CONFIG } from "../core/config.js";
-import { hash, mixColor, prefersReducedMotion, rand } from "../core/util.js";
+import { bus } from "../core/event-bus.js";
+import { calmMotion, hash, mixColor, rand } from "../core/util.js";
 
 const SEASON_LABELS = { spring: "Spring", summer: "Summer", autumn: "Autumn", winter: "Winter" };
 
@@ -41,7 +42,12 @@ export const Seasons = {
   init() {
     this.current = seasonOf();
     document.body.dataset.season = this.current;
-    const count = LOOKS[this.current].bits.length ? (prefersReducedMotion() ? 5 : 16) : 0;
+    this.makeBits();
+    bus.on("calm:change", () => this.makeBits());
+  },
+
+  makeBits() {
+    const count = LOOKS[this.current].bits.length ? (calmMotion() ? 5 : 16) : 0;
     bits = Array.from({ length: count }, (_, i) => ({
       x: rand(0, 800), y: rand(0, 450), v: rand(18, 40), ph: rand(0, 6.28), size: 3 + hash(i) * 3,
       color: LOOKS[this.current].bits[i % LOOKS[this.current].bits.length],
