@@ -43,6 +43,7 @@ import { CONFIG } from "./config.js";
 import { bus } from "./event-bus.js";
 import { load, save, startAutosave } from "./save.js";
 import { state } from "./state.js";
+import { setLanguage } from "../i18n/strings.js";
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
@@ -84,7 +85,9 @@ canvas.addEventListener("pointerdown", takeStep);
 
 window.addEventListener("keydown", (e) => {
   if (e.repeat) return;                       // holding a key shouldn't spam steps
-  if (e.target.closest("button, input")) return; // Space on a focused button should click it, not walk
+  if (paused()) return;                       // panels open: leave Space/arrows alone so they can scroll
+  // Space on a focused control should use that control, not walk
+  if (e.target.closest?.("button, input, select, textarea, summary, a, [role=tab]")) return;
   if (e.code === "Space" || e.code === "ArrowRight") {
     e.preventDefault();
     takeStep();
@@ -138,6 +141,7 @@ function loop(now) {
 // ---- Start ----
 function boot() {
   load();                                  // old saves are upgraded by migrations.js
+  setLanguage(state.settings.lang);
   Panels.init(document.getElementById("stage"));
   HUD.init();
 
@@ -192,7 +196,7 @@ function boot() {
   requestAnimationFrame(loop);
 
   // Handy for testing: open the game with ?debug and use window.__storytrail in the console
-  if (new URLSearchParams(location.search).has("debug")) if (import.meta.env.DEV) window.__storytrail = { state, bus, save, takeStep, Sound, Ambience, AdaptiveMusic, Session, SessionSummary, WelcomeBack, RestReminders, QuietMode, Panels };
+  if (new URLSearchParams(location.search).has("debug")) window.__storytrail = { state, bus, save, takeStep, Sound, Ambience, AdaptiveMusic, Session, SessionSummary, WelcomeBack, RestReminders, QuietMode, Panels };
 }
 
 boot();
