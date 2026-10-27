@@ -1,0 +1,48 @@
+/* accessibility.css - Part 27. Text size, high contrast, reduced motion.
+   The settings are set by src/ui/accessibility.js as attributes on <html>. Loaded LAST so it can override. */
+
+/* ---- Text size: everything is in rem, so scaling the root scales the whole interface ---- */
+:root[data-text="large"]  { font-size: 125%; }
+:root[data-text="xlarge"] { font-size: 150%; }
+
+/* ---- High contrast: pure black and white, solid panels, strong outlines ---- */
+:root[data-contrast="high"],
+:root[data-contrast="high"] body,
+:root[data-contrast="high"] body[data-phase] {   /* themes.css sets these on body, so we must be at least as specific */
+  --night: #000;
+  --dusk: #000;
+  --mist: #fff;
+  --gold: #ffe14d;
+  --page-bg: #000;
+  --panel-bg: #000;
+}
+:root[data-contrast="high"] .panel,
+:root[data-contrast="high"] .tutorial,
+:root[data-contrast="high"] .toast,
+:root[data-contrast="high"] .camp-bar { background: #000; border: 2px solid #fff; }
+:root[data-contrast="high"] button,
+:root[data-contrast="high"] input { border: 2px solid #fff; background: #000; color: #fff; }
+:root[data-contrast="high"] button[aria-pressed="true"] { background: #fff; color: #000; border-color: #ffe14d; }
+:root[data-contrast="high"] button:focus-visible,
+:root[data-contrast="high"] input:focus-visible,
+:root[data-contrast="high"] summary:focus-visible,
+:root[data-contrast="high"] canvas:focus-visible { outline: 4px solid #ffe14d; outline-offset: 3px; }
+:root[data-contrast="high"] body[data-season] .phase { color: #ffe14d; }
+:root[data-contrast="high"] .menu-sub,
+:root[data-contrast="high"] .camp-sub { opacity: 1; }
+:root[data-contrast="high"] .menu-section { border-top-color: #fff; }
+
+/* ---- Reduced motion: the device setting is in base.css; this is the in-game switch ---- */
+:root[data-motion="reduce"] *,
+:root[data-motion="reduce"] *::before,
+:root[data-motion="reduce"] *::after {
+  transition: none !important;
+  animation: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* ---- Windows "forced colors" mode: let the system colours through ---- */
+@media (forced-colors: active) {
+  .panel, .toast, .tutorial, .camp-bar { border: 1px solid CanvasText; }
+  button[aria-pressed="true"] { outline: 2px solid Highlight; }
+}

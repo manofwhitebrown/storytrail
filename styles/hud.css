@@ -78,3 +78,6 @@
   0%, 100% { box-shadow: 0 0 0 0 rgba(242, 214, 117, 0.6); }
   50% { box-shadow: 0 0 0 8px rgba(242, 214, 117, 0); }
 }
+
+/* the tutorial tip would cover the Menu's controls, so it steps aside while the Menu is open */
+.stage:has(#panel-menu:not(.hidden)) .tutorial { display: none; }

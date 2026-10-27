@@ -75,3 +75,19 @@
 .camp-bar h3 { margin: 0 0 6px; font-size: 0.95rem; font-weight: normal; color: var(--gold); width: 100%; }
 .camp-head, .camp-group { width: 100%; display: flex; flex-wrap: wrap; gap: 6px; }
 .camp-head p, .camp-group p { margin: 0; }
+
+/* the Menu: collapsible sections (Part 23+) */
+.menu { width: min(94%, 480px); }
+.menu-section { border-top: 1px solid rgba(223, 232, 238, 0.18); padding: 6px 0; }
+.menu-section summary { cursor: pointer; padding: 6px 0; color: var(--gold); }
+.menu-section summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.menu-body { padding: 4px 0 8px; }
+.menu-body .options { margin-bottom: 8px; }
+.menu-bottom { border-top: 1px solid rgba(223, 232, 238, 0.18); padding-top: 12px; margin: 6px 0 0; }
+
+.panel .slider { display: flex; align-items: center; gap: 12px; margin: 6px 0; }
+.panel .slider span { flex: 0 0 5.5em; }
+.panel .slider input[type="range"] { flex: 1; accent-color: var(--gold); min-width: 0; }
+
+/* `.hidden` must win over any display: set later in this file (the empty camp bar showed on load) */
+.camp-bar.hidden, .options.hidden, .menu-section.hidden { display: none; }
