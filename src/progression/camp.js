@@ -6,6 +6,7 @@ import { bus } from "../core/event-bus.js";
 import { state } from "../core/state.js";
 import { hash, makeEl } from "../core/util.js";
 import { Companions } from "../characters/companions/companions.js";
+import { Customization } from "../characters/customization.js";
 import { Player } from "../characters/player.js";
 import { Panels } from "../ui/panels.js";
 import { HUD } from "../ui/hud.js";
@@ -18,7 +19,7 @@ import { Inventory } from "./inventory.js";
 
 const FIRE = { x: 430, y: 372 };
 // Where things can sit. type: hang (from the rope), ground, shelf (on the crate)
-const SLOTS = [
+export const SLOTS = [
   { id: "hang-1", type: "hang", x: 330, y: 168, label: "Rope, left" },
   { id: "hang-2", type: "hang", x: 560, y: 168, label: "Rope, right" },
   { id: "ground-1", type: "ground", x: 270, y: 404, label: "Ground, left" },
@@ -34,6 +35,7 @@ let clock = 0, restAcc = 0;
 
 export const Camp = {
   active: false,
+  visiting: null, // a friend's camp being looked at (Part 25, see social/visits.js). Drawn by draw(), never changed.
 
   init() {
     btn = document.getElementById("campBtn");
@@ -44,7 +46,7 @@ export const Camp = {
   },
 
   enter() {
-    if (this.active || Transitions.busy || Panels.isOpen()) return;
+    if (this.active || this.visiting || Transitions.busy || Panels.isOpen()) return;
     Transitions.fade(() => {
       this.active = true;
       state.camp.visits += 1;
@@ -134,7 +136,8 @@ export const Camp = {
   },
 
   // ---- drawing ----
-  draw(ctx, w, h) {
+  // `view` draws a friend's camp instead of yours: { slots, player: { coat, hat, lantern }, companion }
+  draw(ctx, w, h, view = this.visiting) {
     const look = World.look;
     const groundY = World.groundY(h);
     World.drawBackdrop(ctx, w, h);
@@ -148,10 +151,10 @@ export const Camp = {
     this.drawPolesAndRope(ctx);
     this.drawCrate(ctx);
     this.drawFire(ctx);
-    this.drawDecor(ctx);
+    this.drawDecor(ctx, view ? view.slots : state.camp.slots, !view);
 
-    Companions.draw(ctx, 372, 398, true);
-    Player.draw(ctx, h, { x: 520, still: true });
+    Companions.draw(ctx, 372, 398, true, view ? view.companion : undefined);
+    Player.draw(ctx, h, { x: 520, still: true, look: view ? Customization.look(view.player) : undefined });
 
     Seasons.draw(ctx);
     Weather.draw(ctx, w, h);
@@ -191,13 +194,14 @@ export const Camp = {
     }
   },
 
-  drawDecor(ctx) {
+  drawDecor(ctx, slots, showEmpty = true) {
     ctx.textAlign = "center";
     ctx.font = "30px serif";
     for (const slot of SLOTS) {
-      const id = state.camp.slots[slot.id];
+      const id = slots[slot.id];
       const item = id && Inventory.get(id);
       if (!item) {
+        if (!showEmpty) continue;   // in a friend's camp the empty spots are just empty
         ctx.strokeStyle = "rgba(223,232,238,0.18)"; ctx.setLineDash([4, 5]); ctx.lineWidth = 1.5;
         ctx.beginPath(); ctx.arc(slot.x, slot.y - (slot.type === "hang" ? 0 : 12), 17, 0, Math.PI * 2); ctx.stroke();
         ctx.setLineDash([]);

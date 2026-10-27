@@ -91,3 +91,14 @@
 
 /* `.hidden` must win over any display: set later in this file (the empty camp bar showed on load) */
 .camp-bar.hidden, .options.hidden, .menu-section.hidden { display: none; }
+
+/* Part 25: postcards and visits */
+.postcard { width: min(94vw, 560px); }
+.postcard-preview { width: 100%; height: auto; cursor: default; border-radius: 6px; margin-bottom: 10px; background: #f3ead3; }
+.postcard label, .menu-body label { display: block; }
+.postcard input[type="text"], .menu-body input[type="text"] { max-width: none; margin-top: 4px; }
+.camp-bar .reward { margin: 0; width: 100%; }
+
+/* the first-time tutorial tip must never sit on top of a dialog's buttons */
+body[data-panel] .tutorial { display: none; }
+body[data-visiting] .tutorial, body[data-visiting] .hint { display: none; }   /* guests are not on the road: no walking tips */

@@ -62,9 +62,13 @@ export const CONFIG = Object.freeze({
   DAILY_TOKENS: 1,           // one small thing a day. No streaks, nothing lost by missing days.
   SEASONAL_TOKENS: 3,
 
-  // ---- Social (Part 25) ---- NOTE: reserved; no code uses these yet
+  // ---- Social (Part 25) ----
   VISIT_TOKENS: 1,           // for sitting by a friend's fire (once per camp)
-  NAME_SAFE_MAX: 16,
+  NAME_SAFE_MAX: 16,         // names read from a friend's link are cut to this length
+  POSTCARD_MESSAGE_MAX: 60,  // characters in a postcard message
+  VISITED_MAX: 200,          // fires remembered (the save stays small); past this, visiting still works but pays nothing
+  CAMP_LINK_MAX: 1500,       // longer links are refused without being read
+  SHARE_URL: "https://manofwhitebrown.github.io/storytrail/", // where camp links point when the game runs inside the Android app
 
   // ---- Privacy (Part 27) ---- NOTE: reserved; nothing is ever sent anywhere yet
   ANALYTICS_ENDPOINT: "",    // leave empty = NOTHING is ever sent anywhere (the default).

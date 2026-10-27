@@ -137,6 +137,8 @@ export const SFX = {
     on("companion:level", "bond");
     on("story:ended", "ending");
     on("welcome:back", "welcome");
+    on("postcard:made", "collection");
+    on("visit:sat", "bond");
   },
 
   names: () => Object.keys(SOUNDS), // for tests

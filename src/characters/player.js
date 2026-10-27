@@ -17,11 +17,12 @@ export const Player = {
 
   groundY(h) { return h * CONFIG.GROUND_RATIO + 70; },
 
-  // opts.x lets the camp draw the traveler somewhere else; opts.still stops the walking bounce
+  // opts.x lets the camp draw the traveler somewhere else; opts.still stops the walking bounce;
+  // opts.look draws someone else (a friend's camp) instead of the player
   draw(ctx, h, opts = {}) {
     const x = opts.x ?? this.x;
     const anim = opts.still ? 0 : this.stepAnim;
-    const look = Customization.look();
+    const look = opts.look ?? Customization.look();
     const groundY = this.groundY(h);
     const t = 1 - anim;                            // 0 -> 1 during a step
     const hop = Math.sin(t * Math.PI) * 12 * anim;

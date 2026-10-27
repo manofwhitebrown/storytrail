@@ -113,9 +113,10 @@ export const Companions = {
 
   update(dt) { hop = Math.max(0, hop - dt * 3); },
 
-  // Walking beside the player (or curled up by the fire when `rest`)
-  draw(ctx, x, y, rest = false) {
-    const c = state.companion;
+  // Walking beside the player (or curled up by the fire when `rest`).
+  // `companion` can be a friend's ({ species, name }, or null for none); left out, it is yours.
+  draw(ctx, x, y, rest = false, companion = state.companion) {
+    const c = companion;
     if (!c || !c.name) return;
     const sp = speciesById(c.species);
     const bounce = rest ? 0 : Math.sin((1 - hop) * Math.PI) * 6 * hop;

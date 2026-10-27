@@ -27,6 +27,9 @@ import { Transitions } from "../ui/transitions.js";
 import { Accessibility } from "../ui/accessibility.js";
 import { Haptics } from "../ui/haptics.js";
 import { initNative } from "./native.js";
+import { SocialMenu } from "../social/menu.js";
+import { Postcards } from "../social/postcards.js";
+import { Visits } from "../social/visits.js";
 import { QuietMode } from "../wellbeing/quiet-mode.js";
 import { RestReminders } from "../wellbeing/rest-reminders.js";
 import { Session, SessionSummary } from "../wellbeing/session-summary.js";
@@ -49,7 +52,7 @@ const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
 // While a panel is open, or you're at camp, walking is paused
-const paused = () => Panels.isOpen() || Camp.active || Transitions.busy;
+const paused = () => Panels.isOpen() || Camp.active || Camp.visiting || Transitions.busy;
 
 // ---- Place names ----
 let shownBiome = -1;
@@ -131,8 +134,9 @@ function loop(now) {
   HUD.update(dt);
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  if (Camp.active) Camp.draw(ctx, canvas.width, canvas.height);
+  if (Camp.active || Camp.visiting) Camp.draw(ctx, canvas.width, canvas.height);
   else drawRoad(canvas.width, canvas.height);
+  Postcards.offer(canvas);   // a postcard copies the scene here, before the HUD text goes on top
   HUD.draw(ctx);
 
   requestAnimationFrame(loop);
@@ -171,6 +175,9 @@ function boot() {
   JournalUI.init();
   MapUI.init();
   Settings.init();
+  Postcards.init();      // Part 25
+  Visits.init();
+  SocialMenu.init();
   Onboarding.init();
 
   Accessibility.init();
@@ -193,10 +200,11 @@ function boot() {
   Onboarding.start();
   initNative();
   WelcomeBack.check();
+  Visits.checkHash();                      // a friend's camp link (#camp=...) becomes a polite invitation
   requestAnimationFrame(loop);
 
   // Handy for testing: open the game with ?debug and use window.__storytrail in the console
-  if (new URLSearchParams(location.search).has("debug")) window.__storytrail = { state, bus, save, takeStep, Sound, Ambience, AdaptiveMusic, Session, SessionSummary, WelcomeBack, RestReminders, QuietMode, Panels };
+  if (new URLSearchParams(location.search).has("debug")) window.__storytrail = { state, bus, save, takeStep, Sound, Ambience, AdaptiveMusic, Session, SessionSummary, WelcomeBack, RestReminders, QuietMode, Panels, Visits, Postcards };
 }
 
 boot();

@@ -41,7 +41,7 @@ export const Haptics = {
   init() {
     bus.on("step", () => this.pulse("step"));
     bus.on("tokens", ({ source }) => { if (source !== "walk") this.pulse("token"); });
-    for (const evt of ["landmark:found", "secret:found", "story:page", "story:ended", "welcome:back"]) {
+    for (const evt of ["landmark:found", "secret:found", "story:page", "story:ended", "welcome:back", "visit:sat"]) {
       bus.on(evt, () => this.pulse("big"));
     }
   },

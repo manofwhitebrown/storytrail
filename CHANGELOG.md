@@ -1,5 +1,16 @@
 # Changelog
 
+## Part 25 (social, kept gentle) and phone fit
+- Postcards (`social/postcards.js`): frame the scene you are looking at with place, season, time, steps and up to 60 words of your own, plus a stamp. Save it as a picture (browser) or hand it to another app (share sheet; Android uses the Share and Filesystem plugins).
+- Camp visits (`social/visits.js`): a camp link holds how your camp looks and nothing else. A friend can open it, look around read-only and sit by your fire (1 token, once per camp, never for your own). Links are validated before use: unknown ids dropped, names cleaned and cut to 16 characters, `{ }` removed.
+- `social/share.js` (clipboard, share sheet, download) and `social/menu.js` (Menu -> Share & visit). No leaderboards, no accounts, nothing is sent anywhere by the game.
+- Achievements: Wish You Were Here (first postcard), Room by the Fire (first visit).
+- `Camp.draw`, `Companions.draw`, `Player.draw` and `Customization.look` can now draw someone else's look and camp.
+- Phone fit (`styles/mobile.css`): the scene fits landscape screens without scrolling; dialogs use the whole screen on phones; buttons are at least 44px on touch screens; notches and gesture bars are respected (`viewport-fit=cover`); the camp/visit bar floats in the corner in landscape.
+- Fixed: the first-time tutorial tip no longer sits on top of dialog buttons.
+- New dependencies: `@capacitor/share`, `@capacitor/filesystem` (Android gradle files regenerated with `npx cap sync android`).
+- Docs: `docs/social.md`; economy table updated.
+
 ## Easy group (docs, tools, accessibility, workflows)
 - Docs: `game-design.md`, `story-bible.md`, `accessibility.md`.
 - Accessibility: Menu -> Accessibility (text size, contrast, reduce motion, vibration) and `styles/accessibility.css`.

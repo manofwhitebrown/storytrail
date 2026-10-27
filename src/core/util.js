@@ -75,3 +75,15 @@ export const prefersReducedMotion = () =>
 
 // "Calm" = less movement for any reason, including quiet mode (Part 24). Used to thin out particles.
 export const calmMotion = () => prefersReducedMotion() || !!state.wellbeing?.quiet;
+
+// Text that came from outside (a friend's link, a postcard message) is cleaned before it is shown or kept:
+// control characters, invisible direction marks, { } (used by t() templates) and < > are removed,
+// spaces are collapsed, and it is cut to `max` characters (whole characters, so emoji are never split).
+export function cleanText(text, max, fallback = "") {
+  const s = String(text ?? "")
+    .replace(/[\u0000-\u001f\u007f-\u009f\u200b-\u200f\u202a-\u202e\u2060-\u2069\ufeff]/g, " ")
+    .replace(/[{}<>]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  return Array.from(s).slice(0, max).join("").trim() || fallback;
+}

@@ -52,6 +52,7 @@ export const Panels = {
     const reg = registry.get(id);
     if (!returnFocus) returnFocus = document.activeElement;
     current = id;
+    document.body.dataset.panel = id;   // lets CSS tuck the tutorial tip away while a dialog is open
     reg.onOpen?.(opts);
     reg.el.classList.remove("hidden");
     const first = reg.el.querySelector("[data-autofocus]") || reg.el.querySelector("button, input, summary");
@@ -64,6 +65,7 @@ export const Panels = {
     reg.el.classList.add("hidden");
     const id = current;
     current = null;
+    delete document.body.dataset.panel;
     reg.onClose?.();
     bus.emit("panel:close", id);
   },

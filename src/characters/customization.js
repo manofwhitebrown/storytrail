@@ -31,12 +31,13 @@ const find = (list, id) => list.find((o) => o.id === id) || list[0];
 
 export const Customization = {
   // The look the player is drawn with right now
-  look() {
+  // (a friend's traveler can be passed in: { coat, hat, lantern } ids)
+  look(p = state.player) {
     return {
-      coat: find(COATS, state.player.coat).color,
-      hat: find(HATS, state.player.hat).id,
-      lantern: find(LANTERNS, state.player.lantern).id,
-      glow: find(LANTERNS, state.player.lantern).glow,
+      coat: find(COATS, p.coat).color,
+      hat: find(HATS, p.hat).id,
+      lantern: find(LANTERNS, p.lantern).id,
+      glow: find(LANTERNS, p.lantern).glow,
     };
   },
 

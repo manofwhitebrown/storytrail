@@ -66,7 +66,7 @@ export function createDefaultState() {
     },
 
     // social (Part 25): all of it stays on this device unless the player shares a link
-    social: { postcards: 0, visited: [] },       // visited: ids of camps you've sat by
+    social: { postcards: 0, visited: [], campId: "" }, // visited: ids of camps you've sat by; campId: a random id for YOUR camp (made on first share)
 
     // goals (Part 25b)
     goals: {

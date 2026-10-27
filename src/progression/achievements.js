@@ -18,6 +18,8 @@ export const ACHIEVEMENTS = [
   { id: "cartographer",  name: "Cartographer", hint: "Reach all six landmarks.", check: () => state.discovered.landmarks.length >= 6 },
   { id: "homebody",      name: "Home by the Fire", hint: "Decorate your camp with three things.", check: () => Object.keys(state.camp.slots).length >= 3 },
   { id: "remembered",    name: "The Road Remembers", hint: "Make three memories.", check: () => state.memories.length >= 3 },
+  { id: "first-postcard", name: "Wish You Were Here", hint: "Save or send a postcard of somewhere you like.", check: () => state.social.postcards >= 1 },
+  { id: "first-visit",   name: "Room by the Fire", hint: "Sit by a friend's fire.", check: () => state.social.visited.length >= 1 },
   { id: "lamp-reached",  name: "The Lamp Is Lit", hint: "Reach the end of the story.", check: () => !!state.story.ended },
 ];
 
@@ -25,7 +27,7 @@ export const Achievements = {
   has: (id) => state.achievements.includes(id),
 
   init() {
-    for (const evt of ["tokens", "landmark:found", "secret:found", "collection:added", "camp:changed", "companion:named", "letter:received", "memory:added", "story:ended", "time:phase", "weather:change"]) {
+    for (const evt of ["tokens", "landmark:found", "secret:found", "collection:added", "camp:changed", "companion:named", "letter:received", "memory:added", "story:ended", "time:phase", "weather:change", "postcard:made", "visit:sat"]) {
       bus.on(evt, () => this.check());
     }
     bus.on("step", (s) => { if (s % 10 === 0) this.check(); });
