@@ -57,16 +57,16 @@ export const CONFIG = Object.freeze({
   WELCOME_BACK_TOKENS: 2,    // a flat gift. It never grows with time away, so staying away is never "rewarded"
   QUIET_EVENT_FACTOR: 2,     // quiet mode: road events come this many times less often
 
-  // ---- Goals (Part 25b: quests) ----
+  // ---- Goals (Part 25b: quests) ---- NOTE: DAILY_/SEASONAL_TOKENS below are reserved; no code uses them yet
   MAX_ACTIVE_ERRANDS: 3,
   DAILY_TOKENS: 1,           // one small thing a day. No streaks, nothing lost by missing days.
   SEASONAL_TOKENS: 3,
 
-  // ---- Social (Part 25) ----
+  // ---- Social (Part 25) ---- NOTE: reserved; no code uses these yet
   VISIT_TOKENS: 1,           // for sitting by a friend's fire (once per camp)
   NAME_SAFE_MAX: 16,
 
-  // ---- Privacy (Part 27) ----
+  // ---- Privacy (Part 27) ---- NOTE: reserved; nothing is ever sent anywhere yet
   ANALYTICS_ENDPOINT: "",    // leave empty = NOTHING is ever sent anywhere (the default).
   ANALYTICS_FLUSH_MS: 30000,
 
