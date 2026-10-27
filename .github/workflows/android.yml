@@ -25,6 +25,8 @@ jobs:
           cache: gradle
 
       - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools   # the default also asks for the removed "tools" package, which fails
 
       - run: npm ci
       - run: npm run build
