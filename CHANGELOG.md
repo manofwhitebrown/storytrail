@@ -1,5 +1,20 @@
 # Changelog
 
+## Easy group (docs, tools, accessibility, workflows)
+- Docs: `game-design.md`, `story-bible.md`, `accessibility.md`.
+- Accessibility: Menu -> Accessibility (text size, contrast, reduce motion, vibration) and `styles/accessibility.css`.
+- Haptics: `ui/haptics.js` (Capacitor Haptics on Android, `navigator.vibrate` in browsers); respects quiet mode and reduced motion.
+- Tool: `npm run optimize` (`tools/optimize-assets.js`) shrinks images; optional `sharp`.
+- Workflows: `test.yml` (validate, test, build) and `deploy-pages.yml` (GitHub Pages).
+
+## Parts 23-24 (audio and wellbeing)
+- Part 23: generative adaptive music (follows place, weather, time, camp), place ambience (brook, waves, sand, birds, owls, campfire), soft sound effects (footsteps per ground type, chimes), shared mixer with limiter, Music/Ambience/Effects sliders. Audio suspends when the tab is hidden.
+- Part 24: rest reminders, quiet mode, session summary ("Rest for now"), welcome back (flat 2-token gift), docs/wellbeing.md.
+- Menu is now collapsible sections that other files register into (`Settings.section`).
+- Save format v6 (new settings, wellbeing, social, goals, privacy fields; migration included).
+- Fixed: empty camp bar showing on load; tutorial tip covering the menu.
+- Foundation only: src/i18n/strings.js and en.json (new strings only so far).
+
 ## 0.2.0 - Parts 10-22
 
 **Foundation**
