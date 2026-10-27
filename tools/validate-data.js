@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 
 const read = (f) => JSON.parse(readFileSync(new URL(`../assets/data/${f}.json`, import.meta.url), "utf8"));
 const items = read("items").items, coll = read("collections"), comp = read("companions").species;
-const ev = read("events"), lm = read("landmarks"), story = read("story");
+const ev = read("events"), lm = read("landmarks"), story = read("story"), quests = read("quests");
 const BIOMES = ["forest", "meadow", "mountains", "snowfields", "desert", "coast"], BIOME_LENGTH = 120;
 const problems = [];
 const bad = (m) => problems.push(m);
@@ -46,6 +46,27 @@ for (const c of story.chapters) for (const p of c.pages) {
   if (p.landmark && !lm.landmarks.some((l) => l.id === p.landmark)) bad(`page ${p.id}: unknown landmark ${p.landmark}`);
 }
 for (const t of ["kind", "curious", "restful"]) if (!story.endings.some((e) => e.id === t)) bad(`missing ending: ${t}`);
+
+
+// goals (quests.json)
+const METRICS = ["steps", "tokens", "landmarks", "collections", "items", "letters", "memories", "camp", "postcards", "visits", "events"];
+const seasonGoals = Object.values(quests.seasonal).flatMap((s) => s.goals);
+const goals = [...quests.errands, ...quests.daily, ...seasonGoals];
+dupes(goals.map((g) => g.id), "goal id");
+for (const g of goals) {
+  if (!METRICS.includes(g.metric)) bad(`goal ${g.id}: unknown metric ${g.metric}`);
+  if (!(g.goal > 0)) bad(`goal ${g.id}: goal must be above 0`);
+  if (g.kind && (g.metric !== "collections" || !coll[g.kind])) bad(`goal ${g.id}: kind ${g.kind} does not fit`);
+}
+for (const e of quests.errands) {
+  if (!(e.reward?.tokens > 0)) bad(`errand ${e.id}: needs a token reward`);
+  if (e.reward?.item && !itemIds.has(e.reward.item)) bad(`errand ${e.id}: unknown item ${e.reward.item}`);
+}
+for (const k of ["spring", "summer", "autumn", "winter"]) {
+  const s = quests.seasonal[k];
+  if (!s) { bad(`quests: missing season ${k}`); continue; }
+  if (!itemIds.has(s.keepsake)) bad(`season ${k}: unknown keepsake ${s.keepsake}`);
+}
 
 if (problems.length) { console.error(problems.map((p) => "x " + p).join("\n")); process.exit(1); }
 console.log("Data OK.");

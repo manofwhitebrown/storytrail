@@ -3,6 +3,7 @@
 import { CONFIG } from "../../core/config.js";
 import { state } from "../../core/state.js";
 import { pick } from "../../core/util.js";
+import { t } from "../../i18n/strings.js";
 import { Inventory } from "../../progression/inventory.js";
 import { HUD } from "../../ui/hud.js";
 import { biomeAt } from "../../world/biomes/index.js";
@@ -22,5 +23,5 @@ export function maybeGift(steps) {
   Inventory.give(id, 1, { silent: true });
   c.gifts += 1;
   const item = Inventory.get(id);
-  HUD.toast(`${c.name} brought you a gift: ${item.name} ${item.emoji}`);
+  HUD.toast(t("gift.brought", { name: c.name, item: item.name, emoji: item.emoji }));
 }

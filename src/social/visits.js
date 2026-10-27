@@ -156,10 +156,16 @@ export const Visits = {
     const found = location.hash.match(/^#camp=([A-Za-z0-9_-]+)$/);
     if (!found) return;
     history.replaceState(null, "", location.pathname + location.search);   // so a reload does not ask again
-    const view = viewFromCode(found[1]);
-    if (!view) { HUD.toast(t("visit.bad"), { feedback: true }); return; }
+    this.invite(found[1]);
+  },
+
+  // A camp code from anywhere (the address, or the Android app opened by a link). Asks first.
+  invite(code) {
+    const view = viewFromCode(code);
+    if (!view) { HUD.toast(t("visit.bad"), { feedback: true }); return false; }
     invited = view;
     Panels.open("visit-invite");
+    return true;
   },
 
   // From a pasted link or code. Returns false when it is not a camp.

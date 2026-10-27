@@ -102,3 +102,8 @@
 /* the first-time tutorial tip must never sit on top of a dialog's buttons */
 body[data-panel] .tutorial { display: none; }
 body[data-visiting] .tutorial, body[data-visiting] .hint { display: none; }   /* guests are not on the road: no walking tips */
+
+/* Goals tab (Part 28) */
+.journal-body ul.goals li.goal { border-bottom: 1px solid rgba(255, 255, 255, 0.12); padding-bottom: 8px; }
+.journal-body ul.goals progress { display: block; width: 100%; height: 8px; margin: 4px 0; accent-color: #f6c874; }
+.journal-body ul.goals button { min-height: 44px; margin-top: 4px; }

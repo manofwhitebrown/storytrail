@@ -2,6 +2,7 @@
 
 import { makeEl } from "../core/util.js";
 import { MAP_H, MAP_W, MapData } from "../world/map.js";
+import { t } from "../i18n/strings.js";
 import { Panels } from "./panels.js";
 
 let el = null;
@@ -15,8 +16,8 @@ export const MapUI = {
   render() {
     el.replaceChildren();
     const head = makeEl("div", null, "panel-head");
-    head.append(makeEl("h2", "Grandmother's Map"));
-    const close = makeEl("button", "Close");
+    head.append(makeEl("h2", t("map.title")));
+    const close = makeEl("button", t("journal.close"));
     close.type = "button";
     close.addEventListener("click", () => Panels.close("map"));
     head.append(close);
@@ -24,16 +25,16 @@ export const MapUI = {
     const canvas = makeEl("canvas", null, "map-canvas");
     canvas.width = MAP_W; canvas.height = MAP_H;
     canvas.setAttribute("role", "img");
-    canvas.setAttribute("aria-label", "A hand-drawn map of the road. A red dot marks where you are.");
+    canvas.setAttribute("aria-label", t("map.aria"));
     MapData.draw(canvas.getContext("2d"));
 
     const d = MapData.describe();
-    const list = (title, items) => makeEl("p", `${title}: ${items.length ? items.join(", ") : "none yet"}.`, "menu-sub");
+    const list = (title, items) => makeEl("p", t("map.list", { title, items: items.length ? items.join(", ") : t("map.none") }), "menu-sub");
     el.append(
       head,
       canvas,
-      makeEl("p", `Road explored: ${MapData.progress()}%. A red dot is you; the little star near the sea is where she drew hers.`, "menu-sub"),
-      list("Places visited", d.places), list("Landmarks", d.lms), list("Secrets found", d.secrets),
+      makeEl("p", t("map.explored", { pct: MapData.progress() }), "menu-sub"),
+      list(t("map.places"), d.places), list(t("map.landmarks"), d.lms), list(t("map.secrets"), d.secrets),
     );
   },
 };

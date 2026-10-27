@@ -9,6 +9,13 @@ import { Companions } from "../characters/companions/companions.js";
 import { Customization } from "../characters/customization.js";
 import { Player } from "../characters/player.js";
 import { Events } from "../events/events.js";
+import { Daily } from "../goals/daily.js";
+import { Quests } from "../goals/quests.js";
+import { Seasonal } from "../goals/seasonal.js";
+import { Analytics } from "../privacy/analytics.js";
+import { Consent } from "../privacy/consent.js";
+import { Cheats } from "../ui/cheats.js";
+import { Backup } from "./backup.js";
 import { Achievements } from "../progression/achievements.js";
 import { Camp } from "../progression/camp.js";
 import { Collections } from "../progression/collections.js";
@@ -84,7 +91,13 @@ function takeStep() {
 }
 
 // ---- Input: tap, click, or keyboard ----
-canvas.addEventListener("pointerdown", takeStep);
+// Tap anywhere on the screen to step. Buttons, fields, dialogs and the title (the cheats door) keep their own taps.
+const OWN_TAP = "button, input, select, textarea, summary, a, label, details, [role=tab], .panel, .camp-bar, .hud h1";
+document.addEventListener("pointerdown", (e) => {
+  if (e.button > 0 || e.isPrimary === false) return;   // right-click, or a second finger
+  if (e.target.closest?.(OWN_TAP)) return;
+  takeStep();
+});
 
 window.addEventListener("keydown", (e) => {
   if (e.repeat) return;                       // holding a key shouldn't spam steps
@@ -167,17 +180,24 @@ function boot() {
   Story.init();
   Unlocks.init();
   Achievements.init();
+  Quests.init();         // Part 28: errands, the daily thing, seasonal goals
+  Daily.init();
+  Seasonal.init();
 
   Ambience.init();
   AdaptiveMusic.init();
   SFX.init();
 
+  Cheats.init({ takeStep, paused, announce: announceBiome });   // hidden: tap the title 7 times
   JournalUI.init();
   MapUI.init();
   Settings.init();
   Postcards.init();      // Part 25
   Visits.init();
   SocialMenu.init();
+  Backup.init();         // Part 29
+  Consent.init();        // Part 27 (asks only if an analytics address is set)
+  Analytics.init();
   Onboarding.init();
 
   Accessibility.init();

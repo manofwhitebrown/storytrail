@@ -2,6 +2,7 @@
 
 import { bus } from "../../core/event-bus.js";
 import { state } from "../../core/state.js";
+import { t } from "../../i18n/strings.js";
 import { HUD } from "../../ui/hud.js";
 
 export const LEVELS = [
@@ -25,7 +26,7 @@ export function addBond(amount) {
   c.bond += amount;
   const after = levelIndex(c.bond);
   if (after > before) {
-    HUD.toast(`${c.name} is now ${LEVELS[after].label.toLowerCase()} with you`);
+    HUD.toast(t("bond.now", { name: c.name, level: LEVELS[after].label.toLowerCase() }));
     bus.emit("companion:level", after);
   }
 }

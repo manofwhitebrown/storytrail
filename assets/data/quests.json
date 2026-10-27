@@ -1,0 +1,233 @@
+{
+ "_note": "Errands: take on up to 3 at a time. metric = what is counted (steps, tokens, landmarks, collections, items, letters, memories, camp, postcards, visits, events). Optional kind (for collections: birds/flowers/songs). reward: { tokens, item }. Nothing here ever expires or counts days.",
+ "errands": [
+  {
+   "id": "stretch-legs",
+   "title": "Stretch your legs",
+   "text": "Walk 40 steps. No hurry.",
+   "metric": "steps",
+   "goal": 40,
+   "reward": {
+    "tokens": 2
+   }
+  },
+  {
+   "id": "long-stroll",
+   "title": "A longer stroll",
+   "text": "Walk 150 steps along the road.",
+   "metric": "steps",
+   "goal": 150,
+   "reward": {
+    "tokens": 3
+   }
+  },
+  {
+   "id": "good-listener",
+   "title": "Lend an ear",
+   "text": "Hear 2 new songs.",
+   "metric": "collections",
+   "kind": "songs",
+   "goal": 2,
+   "reward": {
+    "tokens": 2
+   }
+  },
+  {
+   "id": "bird-sketch",
+   "title": "Sketch a bird",
+   "text": "See a new kind of bird.",
+   "metric": "collections",
+   "kind": "birds",
+   "goal": 1,
+   "reward": {
+    "tokens": 2
+   }
+  },
+  {
+   "id": "pressed-flower",
+   "title": "Press a flower",
+   "text": "Find a new flower for your journal.",
+   "metric": "collections",
+   "kind": "flowers",
+   "goal": 1,
+   "reward": {
+    "tokens": 2
+   }
+  },
+  {
+   "id": "pen-friend",
+   "title": "Post for you",
+   "text": "Receive a letter from someone you met.",
+   "metric": "letters",
+   "goal": 1,
+   "reward": {
+    "tokens": 2
+   }
+  },
+  {
+   "id": "make-home",
+   "title": "Make it homely",
+   "text": "Change something in your camp.",
+   "metric": "camp",
+   "goal": 1,
+   "reward": {
+    "tokens": 2
+   }
+  },
+  {
+   "id": "place-seeker",
+   "title": "Somewhere worth seeing",
+   "text": "Reach 2 landmarks.",
+   "metric": "landmarks",
+   "goal": 2,
+   "reward": {
+    "tokens": 4
+   }
+  },
+  {
+   "id": "road-helper",
+   "title": "Stop and help",
+   "text": "Finish 3 things that happen on the road.",
+   "metric": "events",
+   "goal": 3,
+   "reward": {
+    "tokens": 3
+   }
+  },
+  {
+   "id": "pocket-finds",
+   "title": "Pocketful",
+   "text": "Find 2 things to keep.",
+   "metric": "items",
+   "goal": 2,
+   "reward": {
+    "tokens": 3
+   }
+  },
+  {
+   "id": "wish-you",
+   "title": "Wish you were here",
+   "text": "Make a postcard.",
+   "metric": "postcards",
+   "goal": 1,
+   "reward": {
+    "tokens": 2
+   }
+  },
+  {
+   "id": "warm-seat",
+   "title": "A seat by the fire",
+   "text": "Sit by a friend's fire.",
+   "metric": "visits",
+   "goal": 1,
+   "reward": {
+    "tokens": 3
+   }
+  }
+ ],
+ "daily": [
+  {
+   "id": "d-walk",
+   "text": "Take 25 steps today.",
+   "metric": "steps",
+   "goal": 25
+  },
+  {
+   "id": "d-event",
+   "text": "Stop for one thing on the road.",
+   "metric": "events",
+   "goal": 1
+  },
+  {
+   "id": "d-tokens",
+   "text": "Gather 3 tokens.",
+   "metric": "tokens",
+   "goal": 3
+  },
+  {
+   "id": "d-find",
+   "text": "Find something new for your journal.",
+   "metric": "collections",
+   "goal": 1
+  },
+  {
+   "id": "d-walk2",
+   "text": "Wander 40 steps, slowly.",
+   "metric": "steps",
+   "goal": 40
+  }
+ ],
+ "seasonal": {
+  "spring": {
+   "keepsake": "blossom-jar",
+   "goals": [
+    {
+     "id": "sp-walk",
+     "text": "Walk 120 steps among the blossom.",
+     "metric": "steps",
+     "goal": 120
+    },
+    {
+     "id": "sp-flower",
+     "text": "Press a flower.",
+     "metric": "collections",
+     "kind": "flowers",
+     "goal": 1
+    }
+   ]
+  },
+  "summer": {
+   "keepsake": "sun-bottle",
+   "goals": [
+    {
+     "id": "su-walk",
+     "text": "Walk 120 steps in the long light.",
+     "metric": "steps",
+     "goal": 120
+    },
+    {
+     "id": "su-bird",
+     "text": "See a bird.",
+     "metric": "collections",
+     "kind": "birds",
+     "goal": 1
+    }
+   ]
+  },
+  "autumn": {
+   "keepsake": "leaf-garland",
+   "goals": [
+    {
+     "id": "au-walk",
+     "text": "Walk 120 steps through the leaves.",
+     "metric": "steps",
+     "goal": 120
+    },
+    {
+     "id": "au-song",
+     "text": "Hear a song.",
+     "metric": "collections",
+     "kind": "songs",
+     "goal": 1
+    }
+   ]
+  },
+  "winter": {
+   "keepsake": "frost-lantern",
+   "goals": [
+    {
+     "id": "wi-walk",
+     "text": "Walk 120 steps in the cold.",
+     "metric": "steps",
+     "goal": 120
+    },
+    {
+     "id": "wi-letter",
+     "text": "Receive a letter.",
+     "metric": "letters",
+     "goal": 1
+    }
+   ]
+  }
+ }
+}

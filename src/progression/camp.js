@@ -15,6 +15,7 @@ import { Seasons } from "../world/seasons.js";
 import { TimeOfDay } from "../world/time-of-day.js";
 import { Weather } from "../world/weather.js";
 import { World } from "../world/world.js";
+import { t } from "../i18n/strings.js";
 import { Inventory } from "./inventory.js";
 
 const FIRE = { x: 430, y: 372 };
@@ -27,7 +28,8 @@ export const SLOTS = [
   { id: "shelf-1", type: "shelf", x: 700, y: 330, label: "Crate, left" },
   { id: "shelf-2", type: "shelf", x: 748, y: 330, label: "Crate, right" },
 ];
-const TYPE_WORD = { hang: "hang", ground: "sit on the ground", shelf: "sit on the crate" };
+const typeWord = (type) => t(`camp.type.${type}`);
+const slotLabel = (slot) => t(`camp.slot.${slot.id}`);
 
 let btn = null, bar = null;
 let selected = null;   // item id picked from your pack
@@ -52,7 +54,7 @@ export const Camp = {
       state.camp.visits += 1;
       selected = null;
       bar.classList.remove("hidden");
-      btn.textContent = "Leave camp";
+      btn.textContent = t("camp.leave");
       this.renderBar();
       bus.emit("camp:enter");
     });
@@ -63,7 +65,7 @@ export const Camp = {
     Transitions.fade(() => {
       this.active = false;
       bar.classList.add("hidden");
-      btn.textContent = "Camp";
+      btn.textContent = t("camp.button");
       bus.emit("camp:leave");
     });
   },
@@ -79,18 +81,18 @@ export const Camp = {
   renderBar() {
     bar.replaceChildren();
     const head = makeEl("div", null, "camp-head");
-    head.append(makeEl("h2", "Your camp"));
-    head.append(makeEl("p", Companions.has() ? `${Companions.info()} is resting by the fire.` : "A quiet fire, and room for company.", "camp-sub"));
+    head.append(makeEl("h2", t("camp.title")));
+    head.append(makeEl("p", Companions.has() ? t("camp.resting", { info: Companions.info() }) : t("camp.quiet"), "camp-sub"));
     bar.append(head);
 
     const pack = makeEl("div", null, "camp-group");
-    pack.append(makeEl("h3", "Your pack"));
+    pack.append(makeEl("h3", t("camp.pack")));
     const carried = Inventory.carried();
-    if (!carried.length) pack.append(makeEl("p", "Nothing to decorate with yet. Things you find on the road, and gifts from friends, end up here.", "camp-sub"));
+    if (!carried.length) pack.append(makeEl("p", t("camp.pack.empty"), "camp-sub"));
     for (const { item, count } of carried) {
       const b = makeEl("button", `${item.emoji} ${item.name}${count > 1 ? ` ×${count}` : ""}`);
       b.type = "button";
-      b.title = `${item.note} (${TYPE_WORD[item.slot]})`;
+      b.title = `${item.note} (${typeWord(item.slot)})`;
       b.setAttribute("aria-pressed", String(selected === item.id));
       b.addEventListener("click", () => { selected = selected === item.id ? null : item.id; this.renderBar(); });
       pack.append(b);
@@ -98,19 +100,19 @@ export const Camp = {
     bar.append(pack);
 
     const spots = makeEl("div", null, "camp-group");
-    spots.append(makeEl("h3", selected ? `Where should the ${Inventory.get(selected).name} go?` : "Spots"));
+    spots.append(makeEl("h3", selected ? t("camp.where", { name: Inventory.get(selected).name }) : t("camp.spots")));
     for (const slot of SLOTS) {
       const id = state.camp.slots[slot.id];
       const item = id && Inventory.get(id);
-      const b = makeEl("button", item ? `${item.emoji} ${item.name}` : `${slot.label}: empty`);
+      const b = makeEl("button", item ? `${item.emoji} ${item.name}` : t("camp.empty", { label: slotLabel(slot) }));
       b.type = "button";
-      b.setAttribute("aria-label", item ? `${slot.label}: ${item.name}. Press to take it down.` : `${slot.label}: empty`);
+      b.setAttribute("aria-label", item ? t("camp.aria.full", { label: slotLabel(slot), name: item.name }) : t("camp.empty", { label: slotLabel(slot) }));
       b.addEventListener("click", () => this.useSlot(slot));
       spots.append(b);
     }
     bar.append(spots);
 
-    const leave = makeEl("button", "Leave camp");
+    const leave = makeEl("button", t("camp.leave"));
     leave.type = "button";
     leave.addEventListener("click", () => this.leave());
     bar.append(leave);
@@ -123,12 +125,12 @@ export const Camp = {
       Inventory.give(current, 1, { silent: true });
     } else if (selected) {
       const item = Inventory.get(selected);
-      if (item.slot !== slot.type) { HUD.toast(`The ${item.name} would rather ${TYPE_WORD[item.slot]}.`, { feedback: true }); return; }
+      if (item.slot !== slot.type) { HUD.toast(t("camp.wrongSlot", { name: item.name, how: typeWord(item.slot) }), { feedback: true }); return; }
       if (!Inventory.take(selected)) return;
       state.camp.slots[slot.id] = selected;
       if (!Inventory.count(selected)) selected = null;
     } else {
-      HUD.toast("Pick something from your pack first", { feedback: true });
+      HUD.toast(t("camp.pickFirst"), { feedback: true });
       return;
     }
     this.renderBar();

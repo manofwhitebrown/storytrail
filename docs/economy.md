@@ -21,3 +21,6 @@ Returning after 18+ hours gives a flat 2 tokens, however long you were away. Not
 
 ## Visiting (Part 25)
 Sitting by a friend's fire pays `VISIT_TOKENS` (1) once per camp. Your own camp pays nothing. The list of camps you have sat by is capped at `VISITED_MAX` (200) so a save cannot grow without limit; past that, visiting still works and simply pays nothing. This is a small thank-you for company, not a way to earn: the whole list of visits is worth a few percent of a single walk through the road.
+
+## Goals (Part 28)
+Errands pay what `quests.json` says (2-4 tokens). The daily thing pays `DAILY_TOKENS` (1) once a day; a missed day is just a new day (no streak is stored). Each seasonal goal pays `SEASONAL_TOKENS` (3); finishing both of a season's goals gives that season's keepsake once, ever. All goal rewards together are small next to walking: they never replace it, and goal rewards are not counted as progress for other goals.

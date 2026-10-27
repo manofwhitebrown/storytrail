@@ -3,6 +3,7 @@
 import items from "../../assets/data/items.json";
 import { bus } from "../core/event-bus.js";
 import { state } from "../core/state.js";
+import { t } from "../i18n/strings.js";
 import { HUD } from "../ui/hud.js";
 
 const BY_ID = Object.fromEntries(items.items.map((i) => [i.id, i]));
@@ -16,7 +17,7 @@ export const Inventory = {
     const item = BY_ID[id];
     if (!item) { console.warn(`[inventory] unknown item "${id}"`); return; }
     state.inventory[id] = this.count(id) + n;
-    if (!silent) HUD.toast(`Found: ${item.name} ${item.emoji}`);
+    if (!silent) HUD.toast(t("inventory.found", { name: item.name, emoji: item.emoji }));
     bus.emit("item:gained", item);
   },
 

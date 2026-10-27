@@ -80,3 +80,10 @@
   .postcard label { grid-column: 2; }
   .postcard .row { grid-column: 2; }
 }
+
+/* ---- Portrait: use the whole screen. Taps anywhere walk, so the scene sits in the middle of the free space ---- */
+@media (orientation: portrait) {
+  .game { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
+  .game .stage { margin-top: auto; margin-bottom: auto; width: 100%; }
+}
+body { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }

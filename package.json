@@ -1,6 +1,6 @@
 {
   "name": "storytrail",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "description": "A cozy walking game: tap to step, collect tokens, unlock a story.",
@@ -11,12 +11,15 @@
     "android:sync": "vite build && cap sync android",
     "android:open": "cap open android",
     "optimize": "node tools/optimize-assets.js",
-    "validate": "node tools/validate-data.js"
+    "validate": "node tools/validate-data.js",
+    "test": "vitest run"
   },
   "devDependencies": {
     "@capacitor/android": "^8.5.3",
     "@capacitor/cli": "^8.5.3",
-    "vite": "^5.4.0"
+    "jsdom": "^25.0.1",
+    "vite": "^5.4.0",
+    "vitest": "^2.1.9"
   },
   "dependencies": {
     "@capacitor/app": "^8.1.2",

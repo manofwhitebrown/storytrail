@@ -7,6 +7,7 @@ import { state } from "../core/state.js";
 import { makeEl } from "../core/util.js";
 import { Customization } from "../characters/customization.js";
 import { addTokens } from "../progression/tokens.js";
+import { t } from "../i18n/strings.js";
 import { Panels } from "./panels.js";
 
 let tip = null;
@@ -33,13 +34,13 @@ export const Onboarding = {
 
   renderWelcome(el) {
     el.replaceChildren();
-    const label = makeEl("label", "What should the road call you?");
+    const label = makeEl("label", t("onboard.name"));
     label.htmlFor = "welcomeName";
     const input = makeEl("input");
-    input.type = "text"; input.id = "welcomeName"; input.maxLength = CONFIG.NAME_MAX; input.placeholder = "Traveler";
+    input.type = "text"; input.id = "welcomeName"; input.maxLength = CONFIG.NAME_MAX; input.placeholder = t("onboard.placeholder");
     input.dataset.autofocus = "";
 
-    const go = makeEl("button", "Begin");
+    const go = makeEl("button", t("onboard.begin"));
     go.type = "button";
     const begin = () => {
       Customization.setName(input.value);
@@ -51,8 +52,8 @@ export const Onboarding = {
     input.addEventListener("keydown", (e) => { if (e.key === "Enter") begin(); });
 
     el.append(
-      makeEl("h2", "StoryTrail"),
-      makeEl("p", "A quiet walk, one step at a time. There is nothing to win and nothing to lose. Just a road, and whatever you find on it."),
+      makeEl("h2", t("onboard.title")),
+      makeEl("p", t("onboard.intro")),
       label, input, go,
     );
   },
@@ -74,12 +75,12 @@ export const Onboarding = {
     const step = state.onboardStep;
     tip.replaceChildren();
     let text = "";
-    if (step === "walk") text = `Tap the scene, or press Space, to take a step. (${Math.min(state.steps, CONFIG.WELCOME_TOKEN_AT_STEP)}/${CONFIG.WELCOME_TOKEN_AT_STEP})`;
-    else if (step === "journal") text = "That's a token. Walking earns them, and so does helping what you meet. Open your journal to see what it unlocked.";
-    else if (step === "read") text = "Your first journal page. Close it and keep walking: the road will tell you the rest.";
+    if (step === "walk") text = t("onboard.tip.walk", { done: Math.min(state.steps, CONFIG.WELCOME_TOKEN_AT_STEP), total: CONFIG.WELCOME_TOKEN_AT_STEP });
+    else if (step === "journal") text = t("onboard.tip.journal");
+    else if (step === "read") text = t("onboard.tip.read");
     else { tip.classList.add("hidden"); return; }
 
-    const skip = makeEl("button", "Skip tutorial");
+    const skip = makeEl("button", t("onboard.skip"));
     skip.type = "button";
     skip.addEventListener("click", () => this.finish());
     tip.append(makeEl("p", text), skip);

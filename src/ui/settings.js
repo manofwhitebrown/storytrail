@@ -13,7 +13,7 @@ import { Customization } from "../characters/customization.js";
 import { clearSave, save } from "../core/save.js";
 import { resetState, state } from "../core/state.js";
 import { makeEl } from "../core/util.js";
-import { t } from "../i18n/strings.js";
+import { applyStatic, language, languages, setLanguage, t } from "../i18n/strings.js";
 import { Seasons } from "../world/seasons.js";
 import { TimeOfDay } from "../world/time-of-day.js";
 import { HUD } from "./hud.js";
@@ -49,6 +49,7 @@ export const Settings = {
     el = Panels.create("menu", { className: "centered menu", label: t("menu.title"), onOpen: () => this.render() });
     document.getElementById("menuBtn").addEventListener("click", () => Panels.open("menu"));
 
+    this.section("language", 5, (box, rerender) => this.languageSection(box, rerender));
     this.section("time", 10, (box, rerender) => this.timeSection(box, rerender));
     this.section("sound", 20, (box, rerender) => this.soundSection(box, rerender));
     this.section("traveler", 30, (box) => this.travelerSection(box));
@@ -87,6 +88,22 @@ export const Settings = {
     el.append(bottom);
 
     if (focused) el.querySelector(`[data-section="${focused}"] summary`)?.focus();
+  },
+
+  // Part 27: pick the language of the interface (add one by following strings.js)
+  languageSection(box, rerender) {
+    const row = makeEl("div", null, "options");
+    for (const code of languages()) {
+      let name = code;
+      try { name = new Intl.DisplayNames([code], { type: "language" }).of(code) || code; } catch { /* keep the code */ }
+      row.append(button(name, () => {
+        state.settings.lang = code;
+        setLanguage(code);
+        applyStatic();
+        rerender();
+      }, language() === code));
+    }
+    box.append(makeEl("p", t("menu.language.label"), "menu-sub"), row);
   },
 
   // Part 12: follow the real clock, or run on in-game time

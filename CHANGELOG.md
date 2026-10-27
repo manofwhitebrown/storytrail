@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.0: Parts 26-29 (tests, goals, privacy and language, backup)
+- Tests (Vitest + jsdom, `npm test`, 70 tests): saves (round trip, every old version, corrupt, newer), economy (every page reachable by walking alone), events and people (unique ids, every choice pays, items exist, letters), camp links (hostile input, "a camp pays a visitor only once"), goals, privacy, backup, and "every text key used in the code exists".
+- Goals (`goals/quests.js`, `daily.js`, `seasonal.js`, `assets/data/quests.json`): up to 3 gentle errands, one small daily thing with no streaks, two seasonal goals per season that give a camp keepsake once. New Journal tab "Goals". Four new keepsake items.
+- Privacy (`privacy/consent.js`, `privacy/analytics.js`): off by default and does nothing while `ANALYTICS_ENDPOINT` is empty. If an address is set: asks once, respects Do Not Track, sends only a short list of events with numbers or short ids (never free text). Menu -> Privacy. See `docs/privacy.md`.
+- Language: interface text from the menu, journal, map, tutorial, camp, naming, unlocks, gifts and achievements moved into `i18n/en.json`; Menu -> Language lists the available languages. (Story, events, letters, companion lines and species names are still in `assets/data` and the character files.)
+- Backup (`core/backup.js`): Menu -> Back up & restore (save a file, copy the text, restore from a file).
+- Android: friend's camp links can open the app (`appUrlOpen` + intent filter); release signing from environment variables; `release.yml` builds a signed AAB. See `docs/release.md`.
+- Version 0.3.0 (Android `versionCode` 2). The README is up to date again.
+
 ## Part 25 (social, kept gentle) and phone fit
 - Postcards (`social/postcards.js`): frame the scene you are looking at with place, season, time, steps and up to 60 words of your own, plus a stamp. Save it as a picture (browser) or hand it to another app (share sheet; Android uses the Share and Filesystem plugins).
 - Camp visits (`social/visits.js`): a camp link holds how your camp looks and nothing else. A friend can open it, look around read-only and sit by your fire (1 token, once per camp, never for your own). Links are validated before use: unknown ids dropped, names cleaned and cut to 16 characters, `{ }` removed.

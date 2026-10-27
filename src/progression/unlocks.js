@@ -3,11 +3,12 @@
 import { CONFIG } from "../core/config.js";
 import { bus } from "../core/event-bus.js";
 import { state } from "../core/state.js";
+import { t } from "../i18n/strings.js";
 import { HUD } from "../ui/hud.js";
 
 const RULES = [
-  { id: "map", tokens: CONFIG.UNLOCK_MAP_TOKENS, button: "mapBtn", message: "Grandmother's map is yours: open the Map" },
-  { id: "camp", tokens: CONFIG.UNLOCK_CAMP_TOKENS, button: "campBtn", message: "You can make camp now: open Camp" },
+  { id: "map", tokens: CONFIG.UNLOCK_MAP_TOKENS, button: "mapBtn", message: "unlock.map" },
+  { id: "camp", tokens: CONFIG.UNLOCK_CAMP_TOKENS, button: "campBtn", message: "unlock.camp" },
 ];
 
 export const Unlocks = {
@@ -25,7 +26,7 @@ export const Unlocks = {
       HUD.reveal(r.button);
       if (!this.has(r.id)) {
         state.unlocks.push(r.id);
-        if (!silent) HUD.toast(r.message);
+        if (!silent) HUD.toast(t(r.message));
         bus.emit("unlocked", r.id);
       }
     }

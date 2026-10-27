@@ -77,6 +77,9 @@ export function createDefaultState() {
       seasonal: { key: "", done: [], progress: {} },
     },
 
+    // private testing panel (ui/cheats.js): only a flag and a use counter are saved
+    dev: { unlocked: false, used: 0 },
+
     // privacy (Part 27)
     privacy: { analytics: "unset" },             // unset | yes | no
   };

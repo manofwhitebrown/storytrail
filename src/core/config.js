@@ -57,10 +57,10 @@ export const CONFIG = Object.freeze({
   WELCOME_BACK_TOKENS: 2,    // a flat gift. It never grows with time away, so staying away is never "rewarded"
   QUIET_EVENT_FACTOR: 2,     // quiet mode: road events come this many times less often
 
-  // ---- Goals (Part 25b: quests) ---- NOTE: DAILY_/SEASONAL_TOKENS below are reserved; no code uses them yet
+  // ---- Goals (Part 28: errands, one small daily thing, seasonal goals) ----
   MAX_ACTIVE_ERRANDS: 3,
-  DAILY_TOKENS: 1,           // one small thing a day. No streaks, nothing lost by missing days.
-  SEASONAL_TOKENS: 3,
+  DAILY_TOKENS: 1,            // one small thing a day. No streaks, nothing lost by missing days.
+  SEASONAL_TOKENS: 3,       // per seasonal goal; finishing both also gives a keepsake item
 
   // ---- Social (Part 25) ----
   VISIT_TOKENS: 1,           // for sitting by a friend's fire (once per camp)
@@ -70,7 +70,7 @@ export const CONFIG = Object.freeze({
   CAMP_LINK_MAX: 1500,       // longer links are refused without being read
   SHARE_URL: "https://manofwhitebrown.github.io/storytrail/", // where camp links point when the game runs inside the Android app
 
-  // ---- Privacy (Part 27) ---- NOTE: reserved; nothing is ever sent anywhere yet
+  // ---- Privacy (Part 27) ---- see privacy/analytics.js
   ANALYTICS_ENDPOINT: "",    // leave empty = NOTHING is ever sent anywhere (the default).
   ANALYTICS_FLUSH_MS: 30000,
 

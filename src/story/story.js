@@ -4,6 +4,7 @@
 import { bus } from "../core/event-bus.js";
 import { state } from "../core/state.js";
 import { setFlag } from "../events/consequences.js";
+import { t } from "../i18n/strings.js";
 import { Inventory } from "../progression/inventory.js";
 import { HUD } from "../ui/hud.js";
 import { CHAPTERS, PAGES } from "./chapters/index.js";
@@ -42,8 +43,8 @@ export const Story = {
       state.story.unlocked += 1;
 
       if (!silent) {
-        HUD.toast(`Journal updated: ${page.title}`);
-        if (firstOfChapter) HUD.popup(`Chapter ${page.chapter + 1}: ${chapter.title}`, 400, 90, 3.5);
+        HUD.toast(t("story.updated", { title: page.title }));
+        if (firstOfChapter) HUD.popup(t("story.chapter", { num: page.chapter + 1, title: chapter.title }), 400, 90, 3.5);
       }
       if (firstOfChapter && !silent) chapter.onEnter?.(api);
       if (lastOfChapter && !silent) chapter.onComplete?.(api);
