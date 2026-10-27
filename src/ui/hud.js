@@ -7,6 +7,8 @@ import { state } from "../core/state.js";
 let stepsEl, tokensEl, hintEl, toastEl, phaseEl, journalBtn;
 let toastTimer = null;
 const quietOn = () => !!state.wellbeing?.quiet;
+// Which slice of the 800px-wide scene is on screen (a tall phone crops the sides). main.js keeps this up to date.
+const view = { left: 0, width: 800 };
 let floaters = []; // active popups drawn on the canvas
 
 export const HUD = {
@@ -58,15 +60,19 @@ export const HUD = {
     floaters = floaters.filter((f) => f.life > 0);
   },
 
+  setView(left, width) { view.left = left; view.width = width; },
+
   draw(ctx) {
     ctx.textAlign = "center";
     for (const f of floaters) {
       ctx.font = `${f.size}px Georgia, serif`;
       ctx.globalAlpha = Math.max(0, Math.min(1, f.life));
+      const x = view.width < 800 ? view.left + (f.x / 800) * view.width : f.x;   // keep popups inside a cropped view
+      const max = view.width < 800 ? view.width - 24 : undefined;               // and squeeze long ones to fit
       ctx.fillStyle = "rgba(10,14,30,0.55)";      // soft shadow keeps text readable on bright skies
-      ctx.fillText(f.text, f.x + 1, f.y + 1);
+      ctx.fillText(f.text, x + 1, f.y + 1, max);
       ctx.fillStyle = f.color;
-      ctx.fillText(f.text, f.x, f.y);
+      ctx.fillText(f.text, x, f.y, max);
     }
     ctx.globalAlpha = 1;
   },

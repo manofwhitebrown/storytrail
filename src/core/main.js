@@ -148,6 +148,8 @@ function loop(now) {
   HUD.update(dt);
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  syncView();
+  document.body.classList.toggle("in-camp", !!(Camp.active || Camp.visiting));   // lets phone CSS size the camp differently
   if (Camp.active || Camp.visiting) Camp.draw(ctx, canvas.width, canvas.height);
   else drawRoad(canvas.width, canvas.height);
   Postcards.offer(canvas);   // a postcard copies the scene here, before the HUD text goes on top
@@ -157,6 +159,22 @@ function loop(now) {
 }
 
 // ---- Start ----
+// A tall phone shows only a slice of the wide scene (CSS object-fit: cover). Tell the HUD which slice,
+// so popups land in the middle of what the player can see.
+let viewKey = "";
+function syncView() {
+  const r = canvas.getBoundingClientRect();
+  const cs = getComputedStyle(canvas);
+  const key = `${r.width}|${r.height}|${cs.objectFit}|${cs.objectPosition}`;
+  if (key === viewKey) return;
+  viewKey = key;
+  if (cs.objectFit !== "cover" || !r.width) return HUD.setView(0, canvas.width);
+  const scale = Math.max(r.width / canvas.width, r.height / canvas.height);
+  const p = parseFloat(cs.objectPosition) / 100 || 0.5;
+  const width = r.width / scale;
+  HUD.setView((canvas.width - width) * p, width);
+}
+
 function boot() {
   Assets.init();                           // optional real images, sounds and fonts; never blocks the game
   load();                                  // old saves are upgraded by migrations.js

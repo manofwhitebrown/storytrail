@@ -81,9 +81,18 @@
   .postcard .row { grid-column: 2; }
 }
 
-/* ---- Portrait: use the whole screen. Taps anywhere walk, so the scene sits in the middle of the free space ---- */
+/* ---- Portrait phones: the road fills the screen under the top bar ----
+   The scene is drawn 16:9, so on a tall phone it is cropped to a tall window (object-fit: cover) that keeps the
+   traveler and the pet in view and shows a little less of the road ahead. The camp is drawn edge to edge, so it
+   keeps its full width and sits in the middle instead. Taps anywhere still walk. */
 @media (orientation: portrait) {
   .game { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
-  .game .stage { margin-top: auto; margin-bottom: auto; width: 100%; }
+  .game .stage { margin: 0; width: 100%; }
+  .game canvas { height: min(72vh, 680px); height: min(72dvh, 680px); object-fit: cover; object-position: 20% 50%; }
+  .game .hint { margin-top: auto; padding-top: 10px; }
+  .game .credit { margin-bottom: 4px; }
+  body.in-camp .game .stage { margin-top: auto; margin-bottom: auto; }
+  body.in-camp .game .hint { margin-top: 0; }
+  body.in-camp .game canvas { height: auto; object-fit: fill; }
 }
 body { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
