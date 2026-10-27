@@ -63,6 +63,7 @@ export const World = {
   target: 0,       // how far it should scroll (grows by one step each tap)
   look: BIOMES[0], // the current (possibly blended, season-tinted) scenery
   clock: 0,
+  prints: [],      // where the traveler has stepped: world x positions, newest last
 
   init() {
     this.target = state.steps * STEP_DISTANCE;
@@ -70,7 +71,11 @@ export const World = {
     this.look = this.computeLook();
   },
 
-  step() { this.target += STEP_DISTANCE; },
+  step() {
+    this.prints.push(this.target + CONFIG.PLAYER_X);   // a boot print where we stand now
+    if (this.prints.length > 40) this.prints.shift();
+    this.target += STEP_DISTANCE;
+  },
   pos() { return this.scroll / STEP_DISTANCE; },
   groundY(h) { return h * GROUND_RATIO; },
   computeLook() { return Seasons.tint(blendBiomes(this.pos())); },
@@ -124,6 +129,17 @@ export const World = {
     const pathTop = groundY + 28;
     ctx.fillStyle = b.path;
     ctx.fillRect(0, pathTop, w, h - pathTop - 24);
+
+    // Boot prints: two small boxes per step, fainter the further behind you they are
+    this.prints.forEach((wx, n) => {
+      const x = wx - this.scroll;
+      const behind = CONFIG.PLAYER_X - x;
+      if (behind < 20 || x < -20) return;
+      ctx.fillStyle = `rgba(0,0,0,${Math.max(0, 0.38 - behind / 1400)})`;
+      const y = groundY + 70 + (n % 2 ? -4 : 3);
+      ctx.fillRect(x, y, 9, 4);
+      ctx.fillRect(x + 11, y - 1, 5, 4);
+    });
 
     // Pebbles on the path move at full speed
     const spacing = 90;
