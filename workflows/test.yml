@@ -1,0 +1,31 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # These run only if the project defines them (they arrive with the tests and the content checker)
+      - run: npm run validate --if-present
+      - run: npm test --if-present
+
+      - name: The game builds
+        run: npm run build
+
+      - name: The build contains the game
+        run: |
+          test -f dist/index.html
+          ls dist/assets/*.js > /dev/null
