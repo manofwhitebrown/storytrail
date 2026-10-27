@@ -32,7 +32,8 @@ export function load() {
 
   if (raw && raw.version > CONFIG.SAVE_VERSION) {
     // saved by a newer version of the game: keep a copy so an older build can't destroy it
-    store.setItem(KEY + ".newer", text);
+    // Only the FIRST copy is the real one: after an autosave the main key holds a lossy version
+    if (store.getItem(KEY + ".newer") === null) store.setItem(KEY + ".newer", text);
     console.warn("[save] this save is from a newer version; a backup copy was kept");
   }
 
