@@ -2,8 +2,10 @@
 //
 // The rules: nothing is louder than the ambience, nothing has a hard edge, nothing repeats so fast it
 // becomes noise, and every sound can be switched off (Menu -> Sound -> Effects, or Quiet mode).
-// All of it is made from filtered noise and soft sine notes, so no audio files are needed.
+// All of it is made from filtered noise and soft sine notes, so no audio files are needed
+// (but a real file for any effect name can replace its synth sound: see docs/media.md).
 
+import { Assets } from "../core/assets.js";
 import { CONFIG } from "../core/config.js";
 import { bus } from "../core/event-bus.js";
 import { state } from "../core/state.js";
@@ -115,6 +117,7 @@ const SOUNDS = {
 export const SFX = {
   play(name, data) {
     if (!SOUNDS[name] || !ready(name)) return;
+    if (Assets.playSample(name)) return;   // a real sound file, if you provided one (media/manifest.json)
     try { SOUNDS[name](data); } catch (err) { console.warn("[sfx]", name, err); }
   },
 

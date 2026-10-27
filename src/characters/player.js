@@ -2,7 +2,9 @@
 // Looks come from customization.js; the lantern lights the dark (see time-of-day.js).
 
 import { CONFIG } from "../core/config.js";
-import { mixColor, rgba, roundRect } from "../core/util.js";
+import { Assets } from "../core/assets.js";
+import { mixColor, rgba } from "../core/util.js";
+import { cube, pixel } from "../graphics/blocks.js";
 import { TimeOfDay } from "../world/time-of-day.js";
 import { Customization } from "./customization.js";
 
@@ -18,7 +20,8 @@ export const Player = {
   groundY(h) { return h * CONFIG.GROUND_RATIO + 70; },
 
   // opts.x lets the camp draw the traveler somewhere else; opts.still stops the walking bounce;
-  // opts.look draws someone else (a friend's camp) instead of the player
+  // opts.look draws someone else (a friend's camp) instead of the player.
+  // The traveler is a stack of boxes: two legs, a coat, a scarf, a head, a hat and an arm.
   draw(ctx, h, opts = {}) {
     const x = opts.x ?? this.x;
     const anim = opts.still ? 0 : this.stepAnim;
@@ -26,73 +29,63 @@ export const Player = {
     const groundY = this.groundY(h);
     const t = 1 - anim;                            // 0 -> 1 during a step
     const hop = Math.sin(t * Math.PI) * 12 * anim;
-    const swing = Math.sin(t * Math.PI * 2) * 8 * anim;
+    const swing = Math.sin(t * Math.PI * 2) * 5 * anim;
     const y = groundY - hop;
 
-    // Shadow
+    // Shadow (a flat slab)
     ctx.fillStyle = "rgba(0,0,0,0.25)";
-    ctx.beginPath();
-    ctx.ellipse(x, groundY + 4, 18, 5, 0, 0, Math.PI * 2);
-    ctx.fill();
+    ctx.fillRect(x - 16, groundY + 2, 36, 5);
 
-    // Legs
-    ctx.strokeStyle = "#2a2233";
-    ctx.lineWidth = 5;
-    ctx.lineCap = "round";
-    ctx.beginPath();
-    ctx.moveTo(x - 6, y - 14); ctx.lineTo(x - 6 + swing, y);
-    ctx.moveTo(x + 6, y - 14); ctx.lineTo(x + 6 - swing, y);
-    ctx.stroke();
+    if (Assets.draw(ctx, "player", x, y + 2, 96)) { this.drawLantern(ctx, x, y, look, anim); return; }
+
+    const skin = "#f1d5b5", dark = "#2a2233";
+    const hatColor = mixColor(look.coat, "#101820", 0.45);
+    const coatDark = mixColor(look.coat, "#101820", 0.25);
+
+    // Legs (each swings forward and back)
+    cube(ctx, x - 10 + swing, y - 14, 7, 14, dark, 3);
+    cube(ctx, x + 3 - swing, y - 14, 7, 14, dark, 3);
 
     // Hood goes behind the head
-    const hatColor = mixColor(look.coat, "#101820", 0.45);
-    if (look.hat === "hood") {
-      ctx.fillStyle = look.coat;
-      ctx.beginPath(); ctx.arc(x, y - 60, 15, 0, Math.PI * 2); ctx.fill();
-    }
+    if (look.hat === "hood") cube(ctx, x - 13, y - 68, 26, 24, look.coat, 4);
 
-    // Body (a coat)
-    ctx.fillStyle = look.coat;
-    roundRect(ctx, x - 14, y - 46, 28, 36, 8);
-
-    // Scarf
-    ctx.fillStyle = "#f2d675";
-    roundRect(ctx, x - 14, y - 48, 28, 7, 3);
-
-    // Head
-    ctx.fillStyle = "#f1d5b5";
-    ctx.beginPath(); ctx.arc(x, y - 60, 11, 0, Math.PI * 2); ctx.fill();
+    // Coat, scarf, head
+    cube(ctx, x - 12, y - 44, 24, 30, look.coat, 5);
+    cube(ctx, x - 13, y - 47, 26, 7, "#f2d675", 4);
+    cube(ctx, x - 10, y - 65, 20, 18, skin, 4);
+    pixel(ctx, x - 5, y - 58, 3, 4, dark);   // eyes
+    pixel(ctx, x + 3, y - 58, 3, 4, dark);
 
     // Hat
-    ctx.fillStyle = hatColor;
     if (look.hat === "cap") {
-      roundRect(ctx, x - 13, y - 74, 26, 8, 4);
+      cube(ctx, x - 11, y - 71, 22, 7, hatColor, 4);
+      cube(ctx, x + 6, y - 66, 10, 3, hatColor, 2);
     } else if (look.hat === "brim") {
-      ctx.beginPath(); ctx.ellipse(x, y - 67, 20, 4.5, 0, 0, Math.PI * 2); ctx.fill();
-      roundRect(ctx, x - 10, y - 80, 20, 14, 5);
+      cube(ctx, x - 18, y - 68, 36, 4, hatColor, 3);
+      cube(ctx, x - 9, y - 80, 18, 12, hatColor, 4);
     } else if (look.hat === "beanie") {
-      ctx.beginPath(); ctx.arc(x, y - 63, 12, Math.PI, 0); ctx.fill();
-      ctx.fillStyle = "#f2d675";
-      ctx.beginPath(); ctx.arc(x, y - 76, 3.5, 0, Math.PI * 2); ctx.fill();
+      cube(ctx, x - 11, y - 73, 22, 9, hatColor, 4);
+      cube(ctx, x - 3, y - 79, 6, 6, "#f2d675", 2);
     } else if (look.hat === "hood") {
-      ctx.fillStyle = look.coat;
-      ctx.beginPath(); ctx.arc(x, y - 63, 13, Math.PI * 1.05, Math.PI * 1.95); ctx.fill();
+      cube(ctx, x - 13, y - 72, 26, 7, look.coat, 4);
     }
+
+    // Arm reaching out to the lantern
+    cube(ctx, x + 12, y - 40, 14, 5, coatDark, 3);
 
     this.drawLantern(ctx, x, y, look, anim);
   },
 
   drawLantern(ctx, x, y, look, anim) {
     const sway = Math.sin((1 - anim) * Math.PI * 2) * 3 * anim;
-    const lx = x + 26 + sway;
+    const lx = x + 34 + sway;
     const ly = y - 22;
     this.lantern = { x: lx, y: ly };
 
-    // arm and cord
-    ctx.strokeStyle = "#2a2233"; ctx.lineWidth = 4;
-    ctx.beginPath(); ctx.moveTo(x + 12, y - 36); ctx.lineTo(x + 22, y - 31); ctx.stroke();
-    ctx.lineWidth = 1.2;
-    ctx.beginPath(); ctx.moveTo(x + 22, y - 31); ctx.lineTo(lx, ly - 8); ctx.stroke();
+    // cord (a thin box)
+    ctx.fillStyle = "#2a2233";
+    ctx.fillRect(x + 26, y - 38, 2, 8);
+    ctx.fillRect(Math.min(x + 26, lx), y - 32, Math.abs(lx - x - 26) + 2, 2);
 
     // soft halo (stronger in the dark)
     const halo = ctx.createRadialGradient(lx, ly, 1, lx, ly, 34);
@@ -102,22 +95,14 @@ export const Player = {
     ctx.fillRect(lx - 34, ly - 34, 68, 68);
 
     if (look.lantern === "brass") {
-      ctx.fillStyle = "#b88a3c"; roundRect(ctx, lx - 6, ly - 9, 12, 16, 3);
-      ctx.fillStyle = look.glow; roundRect(ctx, lx - 3.5, ly - 6, 7, 10, 2);
+      cube(ctx, lx - 7, ly - 10, 14, 18, "#b88a3c", 3);
+      pixel(ctx, lx - 4, ly - 7, 8, 12, look.glow);
     } else if (look.lantern === "paper") {
-      ctx.fillStyle = look.glow;
-      ctx.beginPath(); ctx.ellipse(lx, ly, 7, 9, 0, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = "rgba(120,60,30,0.5)"; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.ellipse(lx, ly, 3, 9, 0, 0, Math.PI * 2); ctx.stroke();
+      cube(ctx, lx - 8, ly - 10, 16, 20, look.glow, 3);
+      pixel(ctx, lx - 1, ly - 10, 2, 20, "rgba(120,60,30,0.5)");
     } else {
-      ctx.fillStyle = look.glow;
-      ctx.beginPath();
-      for (let i = 0; i < 10; i++) {
-        const r = i % 2 ? 4 : 9;
-        const a = (i * Math.PI) / 5 - Math.PI / 2;
-        ctx.lineTo(lx + Math.cos(a) * r, ly + Math.sin(a) * r);
-      }
-      ctx.closePath(); ctx.fill();
+      cube(ctx, lx - 3, ly - 10, 6, 20, look.glow, 2);   // a plus-shaped star
+      cube(ctx, lx - 10, ly - 3, 20, 6, look.glow, 2);
     }
   },
 };

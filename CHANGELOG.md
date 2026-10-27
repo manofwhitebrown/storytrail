@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased: boxes, and optional real files
+- Look: the traveler, companions (fox, owl, hare), trees, bushes, cacti, hills, pebbles, landmarks and the camp (tent, crate, rope, fire) are now built from boxes with a lighter top and darker side (`src/graphics/blocks.js`). Keepsakes are 8x8 box sprites (`src/graphics/item-sprites.js`); an item without one shows as a gift box.
+- Optional real files (`src/core/assets.js`, `docs/media.md`, `public/media/manifest.json`): list your own images, sound effects or fonts and they replace the built-in ones; anything missing falls back silently. Ships with nothing listed.
+- Test: `tests/blocks.test.js` (every item has a valid sprite; the game works with no media files).
+
 ## 0.3.0: Parts 26-29 (tests, goals, privacy and language, backup)
 - Tests (Vitest + jsdom, `npm test`, 70 tests): saves (round trip, every old version, corrupt, newer), economy (every page reachable by walking alone), events and people (unique ids, every choice pays, items exist, letters), camp links (hostile input, "a camp pays a visitor only once"), goals, privacy, backup, and "every text key used in the code exists".
 - Goals (`goals/quests.js`, `daily.js`, `seasonal.js`, `assets/data/quests.json`): up to 3 gentle errands, one small daily thing with no streaks, two seasonal goals per season that give a camp keepsake once. New Journal tab "Goals". Four new keepsake items.

@@ -49,6 +49,7 @@ import { Secrets } from "../world/secrets.js";
 import { TimeOfDay } from "../world/time-of-day.js";
 import { Weather } from "../world/weather.js";
 import { World } from "../world/world.js";
+import { Assets } from "./assets.js";
 import { CONFIG } from "./config.js";
 import { bus } from "./event-bus.js";
 import { load, save, startAutosave } from "./save.js";
@@ -157,6 +158,7 @@ function loop(now) {
 
 // ---- Start ----
 function boot() {
+  Assets.init();                           // optional real images, sounds and fonts; never blocks the game
   load();                                  // old saves are upgraded by migrations.js
   setLanguage(state.settings.lang);
   Panels.init(document.getElementById("stage"));

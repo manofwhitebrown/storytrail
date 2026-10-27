@@ -5,6 +5,7 @@
 import { CONFIG } from "../core/config.js";
 import { state } from "../core/state.js";
 import { hash, mixColor } from "../core/util.js";
+import { cube, pixel } from "../graphics/blocks.js";
 import { BIOMES, COLOR_KEYS, NUMBER_KEYS } from "./biomes/index.js";
 import { Landmarks } from "./landmarks.js";
 import { Seasons } from "./seasons.js";
@@ -29,48 +30,31 @@ export function blendBiomes(pos) {
   return out;
 }
 
-// How each kind of scenery is drawn. (x, ground) is where it stands.
+// How each kind of scenery is drawn, all from boxes. (x, ground) is where it stands.
 const FEATURES = {
-  pine(ctx, x, g, size, b) {
-    ctx.fillStyle = "#3a2e2a";
-    ctx.fillRect(x - 3, g - size * 0.4, 6, size * 0.4 + 6);
-    ctx.fillStyle = b.tree;
-    ctx.beginPath();
-    ctx.moveTo(x, g - size * 1.4);
-    ctx.lineTo(x + size * 0.45, g - size * 0.3);
-    ctx.lineTo(x - size * 0.45, g - size * 0.3);
-    ctx.closePath();
-    ctx.fill();
+  pine(ctx, x, g, size, b, i, snow = false) {
+    cube(ctx, x - 4, g - size * 0.4, 8, size * 0.4 + 6, "#3a2e2a", 3);
+    const tier = size * 0.34;
+    [0.95, 0.68, 0.4].forEach((k, n) => {
+      const w = size * k, top = g - size * 0.3 - tier * (n + 1) + n * 4;
+      cube(ctx, x - w / 2, top, w, tier, b.tree, Math.max(3, size * 0.07));
+      if (snow) pixel(ctx, x - w / 2, top, w, 4, "#f4f8fc");
+    });
   },
-  snowpine(ctx, x, g, size, b) {
-    FEATURES.pine(ctx, x, g, size, b);
-    ctx.fillStyle = "#f4f8fc";
-    ctx.beginPath();
-    ctx.moveTo(x, g - size * 1.4);
-    ctx.lineTo(x + size * 0.2, g - size * 0.95);
-    ctx.lineTo(x - size * 0.2, g - size * 0.95);
-    ctx.closePath();
-    ctx.fill();
-  },
+  snowpine(ctx, x, g, size, b, i) { FEATURES.pine(ctx, x, g, size, b, i, true); },
   meadow(ctx, x, g, size, b, i) {
-    ctx.fillStyle = b.tree;
-    ctx.beginPath(); ctx.ellipse(x, g - size * 0.18, size * 0.38, size * 0.24, 0, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = b.accent;
+    const w = size * 0.85, h = size * 0.38;
+    cube(ctx, x - w / 2, g - h, w, h, b.tree, 5);
     for (let f = 0; f < 5; f++) {
-      ctx.beginPath();
-      ctx.arc(x + (hash(i * 5 + f) - 0.5) * size * 0.9, g - 2 - hash(i * 5 + f + 40) * size * 0.2, 2.6, 0, Math.PI * 2);
-      ctx.fill();
+      pixel(ctx, x - w / 2 + 3 + hash(i * 5 + f) * (w - 10), g - h - 6 + hash(i * 5 + f + 40) * 8, 5, 5, b.accent);
     }
   },
   cactus(ctx, x, g, size, b, i) {
-    ctx.fillStyle = b.tree;
     const h = size * 0.95;
-    ctx.fillRect(x - 5, g - h, 10, h + 4);
-    ctx.beginPath(); ctx.arc(x, g - h, 5, 0, Math.PI * 2); ctx.fill();
-    ctx.fillRect(x - 17, g - h * 0.65, 12, 5); ctx.fillRect(x - 17, g - h * 0.65 - 18, 5, 23);
-    if (hash(i) > 0.35) { ctx.fillRect(x + 5, g - h * 0.5, 12, 5); ctx.fillRect(x + 12, g - h * 0.5 - 16, 5, 21); }
-    ctx.fillStyle = b.accent;
-    ctx.beginPath(); ctx.arc(x, g - h - 5, 3, 0, Math.PI * 2); ctx.fill();
+    cube(ctx, x - 6, g - h, 12, h + 4, b.tree, 4);
+    cube(ctx, x - 18, g - h * 0.65, 12, 6, b.tree, 3); cube(ctx, x - 18, g - h * 0.65 - 18, 6, 24, b.tree, 3);
+    if (hash(i) > 0.35) { cube(ctx, x + 6, g - h * 0.5, 12, 6, b.tree, 3); cube(ctx, x + 12, g - h * 0.5 - 16, 6, 22, b.tree, 3); }
+    pixel(ctx, x - 3, g - h - 7, 6, 6, b.accent);
   },
 };
 
@@ -142,34 +126,28 @@ export const World = {
     ctx.fillRect(0, pathTop, w, h - pathTop - 24);
 
     // Pebbles on the path move at full speed
-    ctx.fillStyle = b.pebble;
     const spacing = 90;
     const first = Math.floor(this.scroll / spacing);
     for (let i = first; i < first + w / spacing + 2; i++) {
       const x = i * spacing - this.scroll;
       const y = pathTop + 14 + hash(i) * (h - pathTop - 56);
-      ctx.beginPath();
-      ctx.ellipse(x, y, 6 + hash(i + 7) * 5, 3, 0, 0, Math.PI * 2);
-      ctx.fill();
+      cube(ctx, x, y, 8 + hash(i + 7) * 8, 5, b.pebble, 2);
     }
   },
 
   // jagged: 0 = soft rolling hills, 1 = sharp mountain peaks
   drawHills(ctx, w, baseY, speed, color, amp, period, topY, jagged, scroll) {
     ctx.fillStyle = color;
-    ctx.beginPath();
-    ctx.moveTo(0, baseY);
-    for (let x = 0; x <= w; x += 8) {
-      const phase = (x + scroll * speed) / period;
+    const col = 16;                                   // hills are rows of columns, snapped to 8px steps
+    for (let x = 0; x <= w; x += col) {
+      const phase = (x + col / 2 + scroll * speed) / period;
       const soft = Math.sin(phase * Math.PI * 2);
       const frac = phase - Math.floor(phase);
       const sharp = Math.abs(frac * 2 - 1) * 2 - 1;
       const wave = soft * (1 - jagged) + sharp * jagged;
-      ctx.lineTo(x, topY + wave * amp * 0.5);
+      const y = Math.round((topY + wave * amp * 0.5) / 8) * 8;
+      ctx.fillRect(x, y, col + 1, baseY - y);
     }
-    ctx.lineTo(w, baseY);
-    ctx.closePath();
-    ctx.fill();
   },
 
   drawSea(ctx, w, groundY, b, scroll) {

@@ -35,6 +35,8 @@ Add `?debug` to the URL to get `window.__storytrail` (state, bus, takeStep) in t
 | add a recurring character               | copy `src/characters/npcs/old-traveler.js`, list it in `npcs/index.js` |
 | change what happens at a chapter's start/end | `src/story/chapters/chNN-*.js`          |
 | change errands, the daily thing, seasonal goals | `assets/data/quests.json` (numbers in `config.js`) |
+| draw things differently (boxes)         | `src/graphics/blocks.js`, `item-sprites.js`  |
+| use real images, sounds or fonts        | `public/media/manifest.json` (see `docs/media.md`) |
 | change any interface text               | `src/i18n/en.json` (see `docs/accessibility.md`, "Translating") |
 | change the save format                  | bump `SAVE_VERSION`, add a step in `src/core/migrations.js` |
 

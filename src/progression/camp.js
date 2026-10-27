@@ -5,6 +5,8 @@
 import { bus } from "../core/event-bus.js";
 import { state } from "../core/state.js";
 import { hash, makeEl } from "../core/util.js";
+import { cube, pixel } from "../graphics/blocks.js";
+import { ItemSprites } from "../graphics/item-sprites.js";
 import { Companions } from "../characters/companions/companions.js";
 import { Customization } from "../characters/customization.js";
 import { Player } from "../characters/player.js";
@@ -165,34 +167,38 @@ export const Camp = {
   },
 
   drawTent(ctx) {
-    ctx.fillStyle = "#b7885a";
-    ctx.beginPath(); ctx.moveTo(150, 232); ctx.lineTo(228, 392); ctx.lineTo(72, 392); ctx.closePath(); ctx.fill();
-    ctx.fillStyle = "#8f6540";
-    ctx.beginPath(); ctx.moveTo(150, 232); ctx.lineTo(150, 392); ctx.lineTo(228, 392); ctx.closePath(); ctx.fill();
-    ctx.fillStyle = "#2a1f1a";
-    ctx.beginPath(); ctx.moveTo(150, 290); ctx.lineTo(180, 392); ctx.lineTo(120, 392); ctx.closePath(); ctx.fill();
+    for (let i = 0; i < 5; i++) {                      // five tiers, wide at the bottom
+      const w = 160 - i * 32;
+      cube(ctx, 150 - w / 2, 392 - 32 * (i + 1), w, 32, i % 2 ? "#a67a50" : "#b7885a", 6);
+    }
+    pixel(ctx, 130, 342, 40, 50, "#2a1f1a");           // doorway
+    pixel(ctx, 138, 312, 24, 30, "#2a1f1a");
   },
 
   drawPolesAndRope(ctx) {
-    ctx.strokeStyle = "#4a382c"; ctx.lineWidth = 5;
-    ctx.beginPath(); ctx.moveTo(262, 400); ctx.lineTo(262, 140); ctx.moveTo(642, 400); ctx.lineTo(642, 140); ctx.stroke();
-    ctx.strokeStyle = "#cdbd9a"; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(262, 142); ctx.quadraticCurveTo(450, 164, 642, 142); ctx.stroke();
+    cube(ctx, 259, 140, 7, 262, "#4a382c", 3);
+    cube(ctx, 639, 140, 7, 262, "#4a382c", 3);
+    for (let x = 266; x < 639; x += 12) {              // the rope: a row of little boxes that sags
+      const sag = Math.sin(((x - 266) / 373) * Math.PI) * 22;
+      pixel(ctx, x, 142 + Math.round(sag / 3) * 3, 9, 3, "#cdbd9a");
+    }
   },
 
   drawCrate(ctx) {
-    ctx.fillStyle = "#6b4a30"; ctx.fillRect(676, 340, 100, 56);
-    ctx.fillStyle = "#4f3623"; ctx.fillRect(676, 340, 100, 6); ctx.fillRect(722, 340, 4, 56);
+    cube(ctx, 676, 340, 100, 56, "#6b4a30", 8);
+    pixel(ctx, 676, 340, 100, 6, "#4f3623");
+    pixel(ctx, 722, 340, 4, 56, "#4f3623");
+    pixel(ctx, 676, 366, 100, 4, "#4f3623");
   },
 
   drawFire(ctx) {
     const { x, y } = FIRE;
-    ctx.fillStyle = "#4a3326";
-    ctx.save(); ctx.translate(x, y + 12); ctx.rotate(0.3); ctx.fillRect(-30, -4, 60, 8); ctx.rotate(-0.6); ctx.fillRect(-30, -4, 60, 8); ctx.restore();
+    cube(ctx, x - 32, y + 8, 64, 10, "#4a3326", 4);    // logs
+    cube(ctx, x - 22, y - 2, 44, 10, "#5a4030", 4);
     const flick = (n) => 1 + Math.sin(clock * 9 + n * 2) * 0.12;
-    for (const [rx, ry, col] of [[17, 36, "#e8782a"], [12, 28, "#f6a33a"], [7, 18, "#fde08a"]]) {
-      ctx.fillStyle = col;
-      ctx.beginPath(); ctx.ellipse(x, y - ry * 0.5 * flick(rx), rx, ry * flick(rx), 0, 0, Math.PI * 2); ctx.fill();
+    for (const [w, hgt, col] of [[34, 36, "#e8782a"], [24, 28, "#f6a33a"], [12, 18, "#fde08a"]]) {
+      const hh = Math.round((hgt * flick(w)) / 3) * 3;  // flames grow in whole 3px steps
+      pixel(ctx, x - w / 2, y + 6 - hh, w, hh, col);
     }
   },
 
@@ -205,7 +211,7 @@ export const Camp = {
       if (!item) {
         if (!showEmpty) continue;   // in a friend's camp the empty spots are just empty
         ctx.strokeStyle = "rgba(223,232,238,0.18)"; ctx.setLineDash([4, 5]); ctx.lineWidth = 1.5;
-        ctx.beginPath(); ctx.arc(slot.x, slot.y - (slot.type === "hang" ? 0 : 12), 17, 0, Math.PI * 2); ctx.stroke();
+        ctx.strokeRect(slot.x - 17, slot.y - (slot.type === "hang" ? 0 : 12) - 17, 34, 34);   // an empty box
         ctx.setLineDash([]);
         continue;
       }
@@ -213,9 +219,9 @@ export const Camp = {
         const sway = Math.sin(clock * 1.4 + hash(slot.x) * 6) * (3 + Weather.wind * 6);
         ctx.strokeStyle = "#cdbd9a"; ctx.lineWidth = 1;
         ctx.beginPath(); ctx.moveTo(slot.x, 152); ctx.lineTo(slot.x + sway, slot.y - 12); ctx.stroke();
-        ctx.fillStyle = "#fff"; ctx.fillText(item.emoji, slot.x + sway, slot.y + 10);
+        ItemSprites.draw(ctx, item, slot.x + sway, slot.y - 4);
       } else {
-        ctx.fillStyle = "#fff"; ctx.fillText(item.emoji, slot.x, slot.y);
+        ItemSprites.draw(ctx, item, slot.x, slot.y - 12);
       }
     }
   },

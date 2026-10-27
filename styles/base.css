@@ -17,7 +17,7 @@ body {
   min-height: 100vh;
   background: var(--page-bg);
   color: var(--mist);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-body, Georgia, "Times New Roman", serif);
   transition: background 2s;
 }
 
@@ -79,3 +79,5 @@ input[type="text"] {
   .hint, body, .toast, .fade { transition: none !important; }
   .pulse { animation: none !important; }
 }
+
+h1, h2, h3 { font-family: var(--font-display, var(--font-body, inherit)); }

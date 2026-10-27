@@ -1,0 +1,6 @@
+{
+  "_note": "Optional. Leave every list empty and the game uses its built-in boxes, synth sounds and system fonts. See docs/media.md.",
+  "images": {},
+  "audio": {},
+  "fonts": {}
+}
