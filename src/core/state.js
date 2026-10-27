@@ -58,7 +58,7 @@ export function createDefaultState() {
     wellbeing: {
       quiet: false,                              // quiet mode
       restReminders: true,
-      restEveryMin: 30,                          // 0 = never
+      restEveryMin: CONFIG.REST_REMINDER_MINUTES, // 0 = never
       lastSeen: 0,                               // epoch ms; 0 = never (new player)
       lastSession: null,                         // { minutes, steps, tokens, found: [...] }
       sessions: 0,
