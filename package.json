@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "android:sync": "vite build && cap sync android",
     "android:open": "cap open android",
-    "optimize": "node tools/optimize-assets.js"
+    "optimize": "node tools/optimize-assets.js",
+    "validate": "node tools/validate-data.js"
   },
   "devDependencies": {
     "@capacitor/android": "^8.5.3",
