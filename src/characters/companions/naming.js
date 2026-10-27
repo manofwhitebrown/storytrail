@@ -50,7 +50,11 @@ export const Naming = {
     ok.addEventListener("click", finish);
     input.addEventListener("keydown", (e) => { if (e.key === "Enter") finish(); });
 
+    const cancel = makeEl("button", "Cancel");
+    cancel.type = "button";
+    cancel.addEventListener("click", () => { Panels.close("naming"); Panels.open("menu"); });
+
     el.append(makeEl("h2", `A ${species.label}`), makeEl("p", `Personality: ${species.traits.join(", ")}.`), label, input, makeEl("div", null, "row"));
-    el.lastChild.append(another, ok);
+    el.lastChild.append(another, ...(renaming ? [cancel] : []), ok);
   },
 };
