@@ -81,3 +81,4 @@ input[type="text"] {
 }
 
 h1, h2, h3 { font-family: var(--font-display, var(--font-body, inherit)); }
+.credit { text-align: center; margin: 4px 0 0; font-size: 0.8rem; opacity: 0.5; }

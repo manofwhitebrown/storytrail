@@ -2,6 +2,7 @@
   "name": "storytrail",
   "version": "0.3.0",
   "private": true,
+  "author": "Mohamed Abdul Nayeem",
   "type": "module",
   "description": "A cozy walking game: tap to step, collect tokens, unlock a story.",
   "scripts": {

@@ -1,5 +1,7 @@
 # StoryTrail
 
+Made by Mohamed Abdul Nayeem.
+
 A cozy walking game. Tap (or press Space) to take a step, collect tokens, meet people, and unlock a story.
 Nothing to win, nothing to lose.
 
