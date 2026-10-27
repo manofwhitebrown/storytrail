@@ -2,229 +2,1387 @@
   "_note": "Every choice gives tokens (no wrong answers). Optional fields: tags (kind/curious/restful - decide your ending), set (flags the world remembers), memory (a line for the journal), item, collect {kind,id}. Event fields: requires (conditions), once, weight. `callbacks` only appear after the flag in `requires` is set.",
   "pools": {
     "common": [
-      { "id": "bird-fence", "text": "A small bird sits on a fence post, one wing tucked in oddly.",
+      {
+        "id": "bird-fence",
+        "text": "A small bird sits on a fence post, one wing tucked in oddly.",
         "choices": [
-          { "label": "Carry it to a tree", "result": "It hops onto a branch and sings a few notes before you leave.", "tokens": 2, "tags": ["kind"], "set": ["helped_bird"], "memory": "You carried a hurt bird to a tree, and it sang before you left." },
-          { "label": "Leave some seeds", "result": "You scatter seeds and walk on. Behind you, wings flutter.", "tokens": 1, "tags": ["restful"] }
-        ] },
-      { "id": "fox-lantern", "text": "A fox sits on the path holding a tiny lantern in its mouth.",
+          {
+            "label": "Carry it to a tree",
+            "result": "It hops onto a branch and sings a few notes before you leave.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ],
+            "set": [
+              "helped_bird"
+            ],
+            "memory": "You carried a hurt bird to a tree, and it sang before you left."
+          },
+          {
+            "label": "Leave some seeds",
+            "result": "You scatter seeds and walk on. Behind you, wings flutter.",
+            "tokens": 1,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "fox-lantern",
+        "text": "A fox sits on the path holding a tiny lantern in its mouth.",
         "choices": [
-          { "label": "Take the lantern", "result": "It is warm, and lights the road ahead for a while.", "tokens": 2, "tags": ["curious"], "item": "paper-lantern" },
-          { "label": "Sit with the fox", "result": "You rest together. When you stand, the fox nudges a token into your hand.", "tokens": 3, "tags": ["restful", "kind"], "set": ["fox_friend"], "memory": "You sat with a fox on the road, and it trusted you." }
-        ] },
-      { "id": "stream-stones", "text": "A stream crosses the path. A few flat stones lie nearby.",
+          {
+            "label": "Take the lantern",
+            "result": "It is warm, and lights the road ahead for a while.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ],
+            "item": "paper-lantern"
+          },
+          {
+            "label": "Sit with the fox",
+            "result": "You rest together. When you stand, the fox nudges a token into your hand.",
+            "tokens": 3,
+            "tags": [
+              "restful",
+              "kind"
+            ],
+            "set": [
+              "fox_friend"
+            ],
+            "memory": "You sat with a fox on the road, and it trusted you."
+          }
+        ]
+      },
+      {
+        "id": "stream-stones",
+        "text": "A stream crosses the path. A few flat stones lie nearby.",
         "choices": [
-          { "label": "Build stepping stones", "result": "You set the stones one by one and cross without getting wet.", "tokens": 2, "tags": ["kind"] },
-          { "label": "Wade across", "result": "The water is cold and clear. Something shiny rests in the mud.", "tokens": 1, "tags": ["curious"], "item": "river-stone" }
-        ] },
-      { "id": "mailbox", "text": "A mailbox stands alone by the road. It has your name on it.",
+          {
+            "label": "Build stepping stones",
+            "result": "You set the stones one by one and cross without getting wet.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          },
+          {
+            "label": "Wade across",
+            "result": "The water is cold and clear. Something shiny rests in the mud.",
+            "tokens": 1,
+            "tags": [
+              "curious"
+            ],
+            "item": "river-stone"
+          }
+        ]
+      },
+      {
+        "id": "mailbox",
+        "text": "A mailbox stands alone by the road. It has your name on it.",
         "choices": [
-          { "label": "Open it", "result": "Inside is a folded note and a token. The note says: keep going.", "tokens": 2, "tags": ["curious"], "set": ["mailbox_open"], "memory": "You opened a mailbox with your name on it. It said: keep going." },
-          { "label": "Leave it closed", "result": "Some things can wait. A token slips out from under the lid anyway.", "tokens": 1, "tags": ["restful"], "set": ["mailbox_closed"], "memory": "You left a mailbox with your name on it closed. Some things can wait." }
-        ] },
-      { "id": "wind-chimes", "text": "Wind chimes hang from a tree, though no one is around.",
+          {
+            "label": "Open it",
+            "result": "Inside is a folded note and a token. The note says: keep going.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ],
+            "set": [
+              "mailbox_open"
+            ],
+            "memory": "You opened a mailbox with your name on it. It said: keep going."
+          },
+          {
+            "label": "Leave it closed",
+            "result": "Some things can wait. A token slips out from under the lid anyway.",
+            "tokens": 1,
+            "tags": [
+              "restful"
+            ],
+            "set": [
+              "mailbox_closed"
+            ],
+            "memory": "You left a mailbox with your name on it closed. Some things can wait."
+          }
+        ]
+      },
+      {
+        "id": "wind-chimes",
+        "text": "Wind chimes hang from a tree, though no one is around.",
         "choices": [
-          { "label": "Add one of your own", "result": "The new chime is slightly out of tune, which somehow suits them.", "tokens": 2, "tags": ["kind"], "set": ["chime_hung"], "item": "wind-chime", "collect": { "kind": "songs", "id": "chime-song" }, "memory": "You hung a chime of your own on a stranger's tree." },
-          { "label": "Listen for a while", "result": "The sound settles you. Your steps feel lighter.", "tokens": 2, "tags": ["restful"], "collect": { "kind": "songs", "id": "chime-song" } }
-        ] }
+          {
+            "label": "Add one of your own",
+            "result": "The new chime is slightly out of tune, which somehow suits them.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ],
+            "set": [
+              "chime_hung"
+            ],
+            "item": "wind-chime",
+            "collect": {
+              "kind": "songs",
+              "id": "chime-song"
+            },
+            "memory": "You hung a chime of your own on a stranger's tree."
+          },
+          {
+            "label": "Listen for a while",
+            "result": "The sound settles you. Your steps feel lighter.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ],
+            "collect": {
+              "kind": "songs",
+              "id": "chime-song"
+            }
+          }
+        ]
+      },
+      {
+        "id": "wandering-compass",
+        "once": true,
+        "text": "You find a brass compass that points, stubbornly, not north but to the nearest friendly thing.",
+        "choices": [
+          {
+            "label": "Follow the needle",
+            "result": "It leads you to a bench in the sun with a crust of bread on it. Fair enough.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ],
+            "item": "wandering-compass"
+          },
+          {
+            "label": "Pocket it and walk on",
+            "result": "It hums faintly against your hip, like it is keeping an eye out for you.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ],
+            "item": "wandering-compass"
+          }
+        ]
+      },
+      {
+        "id": "kettle-on-stump",
+        "once": true,
+        "text": "A kettle simmers on a stump with a note: 'Help yourself. - Someone who walked here before.'",
+        "choices": [
+          {
+            "label": "Pour a cup and sit",
+            "result": "It is exactly the right temperature. You leave the tin on the stump, then take it back, then leave it again.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ],
+            "item": "tea-tin"
+          },
+          {
+            "label": "Leave some of your own bread",
+            "result": "Next to the kettle, it looks like the start of a tradition.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "empty-firefly-jar",
+        "once": true,
+        "requires": {
+          "time": [
+            "night",
+            "dusk"
+          ]
+        },
+        "text": "A glass jar sits open on a wall, glowing faintly where fireflies used to be.",
+        "choices": [
+          {
+            "label": "Leave the lid off",
+            "result": "A few sparks lift out of the dark and settle on your sleeve for a moment.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          },
+          {
+            "label": "Carry the empty jar",
+            "result": "It catches your lantern and makes a small glow of its own.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ],
+            "item": "firefly-jar"
+          }
+        ]
+      }
     ],
-
     "forest": [
-      { "id": "mushroom-ring", "text": "A ring of pale mushrooms glows faintly at the foot of an old pine.",
+      {
+        "id": "mushroom-ring",
+        "text": "A ring of pale mushrooms glows faintly at the foot of an old pine.",
         "choices": [
-          { "label": "Step inside the ring", "result": "The air inside is warmer, and smells of rain that hasn't happened yet.", "tokens": 2, "tags": ["curious"] },
-          { "label": "Walk around it", "result": "It feels polite. Something rustles approvingly.", "tokens": 1, "tags": ["restful"] }
-        ] },
-      { "id": "woodcutters-cabin", "text": "A cabin with smoke curling from its chimney. A sign on the door: 'Kettle's on. Nobody home.'",
+          {
+            "label": "Step inside the ring",
+            "result": "The air inside is warmer, and smells of rain that hasn't happened yet.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ]
+          },
+          {
+            "label": "Walk around it",
+            "result": "It feels polite. Something rustles approvingly.",
+            "tokens": 1,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "woodcutters-cabin",
+        "text": "A cabin with smoke curling from its chimney. A sign on the door: 'Kettle's on. Nobody home.'",
         "choices": [
-          { "label": "Add a log to the woodpile", "result": "The pile looks very pleased to have you. A token sits on the doorstep.", "tokens": 2, "tags": ["kind"] },
-          { "label": "Peek through the window", "result": "A table set for two, and a map pinned to the wall, with a star on it.", "tokens": 2, "tags": ["curious"] }
-        ] },
-      { "id": "pine-owl", "text": "An owl watches you from a low branch, entirely unbothered.",
+          {
+            "label": "Add a log to the woodpile",
+            "result": "The pile looks very pleased to have you. A token sits on the doorstep.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          },
+          {
+            "label": "Peek through the window",
+            "result": "A table set for two, and a map pinned to the wall, with a star on it.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "pine-owl",
+        "text": "An owl watches you from a low branch, entirely unbothered.",
         "choices": [
-          { "label": "Bow to the owl", "result": "It blinks once, slowly. You feel oddly approved of.", "tokens": 2, "tags": ["restful"] },
-          { "label": "Count its blinks", "result": "Seven blinks, then a feather drifts down onto the path.", "tokens": 1, "tags": ["curious"], "item": "feather" }
-        ] }
+          {
+            "label": "Bow to the owl",
+            "result": "It blinks once, slowly. You feel oddly approved of.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ]
+          },
+          {
+            "label": "Count its blinks",
+            "result": "Seven blinks, then a feather drifts down onto the path.",
+            "tokens": 1,
+            "tags": [
+              "curious"
+            ],
+            "item": "feather"
+          }
+        ]
+      },
+      {
+        "id": "lantern-moths",
+        "text": "Pale moths circle your lantern, then drift away in a line, as if they know a shortcut.",
+        "choices": [
+          {
+            "label": "Follow them a little",
+            "result": "They lead you past a mossy stump and a patch of warm air, then lose interest and wander back.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ]
+          },
+          {
+            "label": "Let them go",
+            "result": "The light feels a little brighter without being asked to share it.",
+            "tokens": 1,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "log-library",
+        "text": "Someone has hollowed out a log and filled it with tiny books, each the size of a matchbox.",
+        "choices": [
+          {
+            "label": "Read one standing there",
+            "result": "It is three sentences long and somehow finished. You feel read to.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ]
+          },
+          {
+            "label": "Leave a small note inside",
+            "result": "You write 'thank you for the road' on a scrap and tuck it between the books.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          }
+        ]
+      }
     ],
-
     "meadow": [
-      { "id": "bee-hum", "text": "The whole meadow is humming. Bees drift from flower to flower like slow thoughts.",
+      {
+        "id": "bee-hum",
+        "text": "The whole meadow is humming. Bees drift from flower to flower like slow thoughts.",
         "choices": [
-          { "label": "Lie in the grass and listen", "result": "You're gone for a little while. When you come back, the hum is part of you.", "tokens": 2, "tags": ["restful"] },
-          { "label": "Follow one bee", "result": "It leads you to a hollow tree, dripping gold. The bees let you take a single drop.", "tokens": 2, "tags": ["curious"] }
-        ] },
-      { "id": "picnic-blanket", "text": "A checkered blanket is spread in the grass. Two cups, one sandwich, no people.",
+          {
+            "label": "Lie in the grass and listen",
+            "result": "You're gone for a little while. When you come back, the hum is part of you.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ]
+          },
+          {
+            "label": "Follow one bee",
+            "result": "It leads you to a hollow tree, dripping gold. The bees let you take a single drop.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "picnic-blanket",
+        "text": "A checkered blanket is spread in the grass. Two cups, one sandwich, no people.",
         "choices": [
-          { "label": "Leave a flower on the blanket", "result": "You tuck a wildflower under a cup. Somewhere, someone will smile.", "tokens": 2, "tags": ["kind"] },
-          { "label": "Sit for a minute", "result": "The sandwich is, mysteriously, exactly what you wanted.", "tokens": 2, "tags": ["restful"] }
-        ] },
-      { "id": "kite-string", "text": "A kite string runs across the path and up into the sky. At the other end, a child waves.",
+          {
+            "label": "Leave a flower on the blanket",
+            "result": "You tuck a wildflower under a cup. Somewhere, someone will smile.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          },
+          {
+            "label": "Sit for a minute",
+            "result": "The sandwich is, mysteriously, exactly what you wanted.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kite-string",
+        "text": "A kite string runs across the path and up into the sky. At the other end, a child waves.",
         "choices": [
-          { "label": "Hold the string a while", "result": "The kite tugs like a living thing. The child laughs and gives you a token.", "tokens": 2, "tags": ["kind"] },
-          { "label": "Look for the kite", "result": "It's a tiny red shape, nearly out of sight. You've never seen anything so brave.", "tokens": 1, "tags": ["curious"] }
-        ] }
+          {
+            "label": "Hold the string a while",
+            "result": "The kite tugs like a living thing. The child laughs and gives you a token.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          },
+          {
+            "label": "Look for the kite",
+            "result": "It's a tiny red shape, nearly out of sight. You've never seen anything so brave.",
+            "tokens": 1,
+            "tags": [
+              "curious"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "dandelion-wish",
+        "text": "One dandelion clock stands taller than the rest, perfectly round and perfectly still.",
+        "choices": [
+          {
+            "label": "Blow it all at once",
+            "result": "A hundred small parachutes rise together and head off towards wherever wishes go.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ]
+          },
+          {
+            "label": "Make a wish and carry it",
+            "result": "You keep it gently upright for a mile, then set it down somewhere sunny.",
+            "tokens": 1,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "basket-weaver",
+        "once": true,
+        "text": "An old woman weaves baskets at the roadside and waves you over without looking up.",
+        "choices": [
+          {
+            "label": "Sit and watch her hands",
+            "result": "Over and under, over and under. She hands you a finished basket as if it had always been yours.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ],
+            "item": "woven-basket"
+          },
+          {
+            "label": "Ask what she is making",
+            "result": "'Room for things,' she says, and gives you one to fill.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ],
+            "item": "woven-basket"
+          }
+        ]
+      }
     ],
-
     "mountains": [
-      { "id": "cairn-builder", "text": "Someone has been building a cairn here, one stone at a time. A flat stone sits ready.",
+      {
+        "id": "cairn-builder",
+        "text": "Someone has been building a cairn here, one stone at a time. A flat stone sits ready.",
         "choices": [
-          { "label": "Add your stone", "result": "It fits perfectly, as if it had been saved for you.", "tokens": 2, "tags": ["kind"], "set": ["cairn_built"], "memory": "You added a stone to a cairn high in the mountains." },
-          { "label": "Admire the view", "result": "The valley is a green quilt far below. You carry that sight with you.", "tokens": 2, "tags": ["restful"] }
-        ] },
-      { "id": "mountain-goat", "text": "A mountain goat stands on a ledge that shouldn't be able to hold it.",
+          {
+            "label": "Add your stone",
+            "result": "It fits perfectly, as if it had been saved for you.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ],
+            "set": [
+              "cairn_built"
+            ],
+            "memory": "You added a stone to a cairn high in the mountains."
+          },
+          {
+            "label": "Admire the view",
+            "result": "The valley is a green quilt far below. You carry that sight with you.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mountain-goat",
+        "text": "A mountain goat stands on a ledge that shouldn't be able to hold it.",
         "choices": [
-          { "label": "Offer it some bread", "result": "It eats with enormous dignity, then leaves a token on the rock.", "tokens": 2, "tags": ["kind"] },
-          { "label": "Wave and wait", "result": "It watches you the whole way past, like a very small mountain keeping count.", "tokens": 1, "tags": ["curious"] }
-        ] },
-      { "id": "valley-echo", "text": "You call your name into the valley, and the valley answers a moment late.",
+          {
+            "label": "Offer it some bread",
+            "result": "It eats with enormous dignity, then leaves a token on the rock.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          },
+          {
+            "label": "Wave and wait",
+            "result": "It watches you the whole way past, like a very small mountain keeping count.",
+            "tokens": 1,
+            "tags": [
+              "curious"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "valley-echo",
+        "text": "You call your name into the valley, and the valley answers a moment late.",
         "choices": [
-          { "label": "Shout something kind", "result": "The mountains give it back, bigger. You walk taller for a while.", "tokens": 2, "tags": ["kind"] },
-          { "label": "Whisper, to see if it whispers back", "result": "It does. It whispers back something slightly different from what you said.", "tokens": 3, "tags": ["curious"] }
-        ] }
+          {
+            "label": "Shout something kind",
+            "result": "The mountains give it back, bigger. You walk taller for a while.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          },
+          {
+            "label": "Whisper, to see if it whispers back",
+            "result": "It does. It whispers back something slightly different from what you said.",
+            "tokens": 3,
+            "tags": [
+              "curious"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ledge-letters",
+        "text": "A stone ledge is scratched with lines from earlier walkers: 'Nearly there.' 'Not nearly there.' 'Worth it.'",
+        "choices": [
+          {
+            "label": "Scratch your own line",
+            "result": "You write something short and true. The rock keeps it better than paper would.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ]
+          },
+          {
+            "label": "Draw a small star",
+            "result": "It looks a little like a child's drawing, which is exactly the right amount of hopeful.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "stone-shelter",
+        "once": true,
+        "text": "Dark clouds gather, and a stone shelter appears just in time, with a dry stack of wood inside.",
+        "choices": [
+          {
+            "label": "Add wood for the next traveler",
+            "result": "You leave more than you took. The storm outside sounds almost friendly.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          },
+          {
+            "label": "Wait out the storm",
+            "result": "You watch the weather change its mind, and find an old storm lantern behind the woodpile.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ],
+            "item": "storm-lantern"
+          }
+        ]
+      }
     ],
-
     "snowfields": [
-      { "id": "snow-tracks", "text": "A line of small tracks crosses the snow and stops, as if whoever made them had simply been lifted away.",
+      {
+        "id": "snow-tracks",
+        "text": "A line of small tracks crosses the snow and stops, as if whoever made them had simply been lifted away.",
         "choices": [
-          { "label": "Follow the tracks", "result": "They end at a tiny snow globe, half buried. You brush it off and it begins, faintly, to glow.", "tokens": 2, "tags": ["curious"], "item": "snow-globe" },
-          { "label": "Leave them undisturbed", "result": "Some mysteries are happier unsolved. The snow seems to agree.", "tokens": 1, "tags": ["restful"] }
-        ] },
-      { "id": "ice-lantern", "text": "Someone has carved lanterns out of ice and set them along the path. Each holds a small flame.",
+          {
+            "label": "Follow the tracks",
+            "result": "They end at a tiny snow globe, half buried. You brush it off and it begins, faintly, to glow.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ],
+            "item": "snow-globe"
+          },
+          {
+            "label": "Leave them undisturbed",
+            "result": "Some mysteries are happier unsolved. The snow seems to agree.",
+            "tokens": 1,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ice-lantern",
+        "text": "Someone has carved lanterns out of ice and set them along the path. Each holds a small flame.",
         "choices": [
-          { "label": "Relight the one that has gone out", "result": "It catches on the second try, and the whole row seems a little brighter.", "tokens": 2, "tags": ["kind"] },
-          { "label": "Walk the line to its end", "result": "At the end there is nothing, and it is the loveliest nothing you've ever seen.", "tokens": 2, "tags": ["curious"] }
-        ] },
-      { "id": "frozen-pond", "text": "A pond has frozen so clearly you can see the fish below, paused like beads on a string.",
+          {
+            "label": "Relight the one that has gone out",
+            "result": "It catches on the second try, and the whole row seems a little brighter.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          },
+          {
+            "label": "Walk the line to its end",
+            "result": "At the end there is nothing, and it is the loveliest nothing you've ever seen.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "frozen-pond",
+        "text": "A pond has frozen so clearly you can see the fish below, paused like beads on a string.",
         "choices": [
-          { "label": "Skate across in your boots", "result": "You slide ten wonderful feet and fall over, laughing at nobody.", "tokens": 2, "tags": ["curious"] },
-          { "label": "Sit on the bank and watch", "result": "The pond holds its breath with you. Time goes thin and soft.", "tokens": 2, "tags": ["restful"] }
-        ] }
+          {
+            "label": "Skate across in your boots",
+            "result": "You slide ten wonderful feet and fall over, laughing at nobody.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ]
+          },
+          {
+            "label": "Sit on the bank and watch",
+            "result": "The pond holds its breath with you. Time goes thin and soft.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "snow-lantern-row",
+        "text": "Someone has lined the path with tiny snow lanterns, each one still burning.",
+        "choices": [
+          {
+            "label": "Walk slowly between them",
+            "result": "Every flame leans a little as you pass, like a very small audience.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ]
+          },
+          {
+            "label": "Relight the one that went out",
+            "result": "It takes three tries and cold fingers. When it catches, the whole row seems to brighten.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "abandoned-sledge",
+        "text": "A wooden sledge waits at the top of a gentle slope, a note tied to it: 'Free ride. Return before dark.'",
+        "choices": [
+          {
+            "label": "Take a run",
+            "result": "You shriek, quietly, the whole way down. It is the best forty seconds of the week.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ]
+          },
+          {
+            "label": "Tow it back up for the next person",
+            "result": "Your boots will remember this climb, but the note is a little prouder.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          }
+        ]
+      }
     ],
-
     "desert": [
-      { "id": "cactus-bloom", "text": "In the middle of a thousand spines, one cactus has bloomed. The flower is the size of a thumbnail.",
+      {
+        "id": "cactus-bloom",
+        "text": "In the middle of a thousand spines, one cactus has bloomed. The flower is the size of a thumbnail.",
         "choices": [
-          { "label": "Shade it with your hat", "result": "A tiny kindness on a very large day. The cactus does not thank you, but it leans.", "tokens": 2, "tags": ["kind"] },
-          { "label": "Sit and admire it", "result": "It lasts a day, they say. You spend an hour of it.", "tokens": 2, "tags": ["restful"] }
-        ] },
-      { "id": "dry-well", "text": "An old well stands in the sand. Something at the bottom glints.",
+          {
+            "label": "Shade it with your hat",
+            "result": "A tiny kindness on a very large day. The cactus does not thank you, but it leans.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          },
+          {
+            "label": "Sit and admire it",
+            "result": "It lasts a day, they say. You spend an hour of it.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "dry-well",
+        "text": "An old well stands in the sand. Something at the bottom glints.",
         "choices": [
-          { "label": "Lower your lantern to look", "result": "A small sun-colored stone, warm even after being so long in the dark.", "tokens": 2, "tags": ["curious"], "item": "sun-stone" },
-          { "label": "Drop in a token for luck", "result": "You hear it land, and then, faintly, something answers with a ring of its own.", "tokens": 1, "tags": ["kind"] }
-        ] },
-      { "id": "caravan-bell", "text": "You hear a bell, but no caravan. A single bell lies on the sand, still faintly ringing.",
+          {
+            "label": "Lower your lantern to look",
+            "result": "A small sun-colored stone, warm even after being so long in the dark.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ],
+            "item": "sun-stone"
+          },
+          {
+            "label": "Drop in a token for luck",
+            "result": "You hear it land, and then, faintly, something answers with a ring of its own.",
+            "tokens": 1,
+            "tags": [
+              "kind"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "caravan-bell",
+        "text": "You hear a bell, but no caravan. A single bell lies on the sand, still faintly ringing.",
         "choices": [
-          { "label": "Ring it back", "result": "The sound carries a long way. Far off, someone rings in return.", "tokens": 2, "tags": ["curious"] },
-          { "label": "Hang it where travelers will find it", "result": "You hook it onto a crooked post. It sounds better there than it ever did on the ground.", "tokens": 2, "tags": ["kind"] }
-        ] }
+          {
+            "label": "Ring it back",
+            "result": "The sound carries a long way. Far off, someone rings in return.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ]
+          },
+          {
+            "label": "Hang it where travelers will find it",
+            "result": "You hook it onto a crooked post. It sounds better there than it ever did on the ground.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "painted-stones",
+        "text": "Smooth stones, each painted with one small bright eye, line a dry streambed.",
+        "choices": [
+          {
+            "label": "Take one for luck",
+            "result": "It feels warm in your pocket, and watchful in a friendly way.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ]
+          },
+          {
+            "label": "Pour a drop of water by them",
+            "result": "The ground darkens, then dries, and every eye seems to blink.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "singing-dunes",
+        "text": "The dunes begin to hum, a low note that seems to come from everywhere at once.",
+        "choices": [
+          {
+            "label": "Hum along",
+            "result": "You find the note after a few tries. The sand shivers with approval.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ]
+          },
+          {
+            "label": "Sit and listen",
+            "result": "It rises, holds, and fades. You stay a while after it stops.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      }
     ],
-
     "coast": [
-      { "id": "message-bottle", "text": "A bottle rolls in on the tide with a rolled-up note inside.",
+      {
+        "id": "message-bottle",
+        "text": "A bottle rolls in on the tide with a rolled-up note inside.",
         "choices": [
-          { "label": "Read the note", "result": "It says: 'To whoever finds this: you're doing better than you think.' Kind of the sea.", "tokens": 2, "tags": ["curious"] },
-          { "label": "Send it back out unread", "result": "Some messages are for someone further down the shore.", "tokens": 2, "tags": ["kind"] }
-        ] },
-      { "id": "tide-crab", "text": "A small crab is rescuing a larger shell with great determination.",
+          {
+            "label": "Read the note",
+            "result": "It says: 'To whoever finds this: you're doing better than you think.' Kind of the sea.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ]
+          },
+          {
+            "label": "Send it back out unread",
+            "result": "Some messages are for someone further down the shore.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "tide-crab",
+        "text": "A small crab is rescuing a larger shell with great determination.",
         "choices": [
-          { "label": "Help it push", "result": "Together you win. The crab looks at you with unmistakable pride.", "tokens": 2, "tags": ["kind"] },
-          { "label": "Watch it work", "result": "It takes eleven minutes. It is the best eleven minutes of your day.", "tokens": 2, "tags": ["restful"] }
-        ] },
-      { "id": "driftwood-fire", "text": "Someone has left a driftwood fire burning on the beach, banked low and glowing.",
+          {
+            "label": "Help it push",
+            "result": "Together you win. The crab looks at you with unmistakable pride.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          },
+          {
+            "label": "Watch it work",
+            "result": "It takes eleven minutes. It is the best eleven minutes of your day.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "driftwood-fire",
+        "text": "Someone has left a driftwood fire burning on the beach, banked low and glowing.",
         "choices": [
-          { "label": "Feed it a few sticks", "result": "It leaps up gratefully, throwing shadows that look like dancers.", "tokens": 2, "tags": ["kind"] },
-          { "label": "Warm your hands", "result": "The heat sinks into your shoulders. The sea keeps time behind you.", "tokens": 2, "tags": ["restful"] }
-        ] }
+          {
+            "label": "Feed it a few sticks",
+            "result": "It leaps up gratefully, throwing shadows that look like dancers.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          },
+          {
+            "label": "Warm your hands",
+            "result": "The heat sinks into your shoulders. The sea keeps time behind you.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "paper-boat-tide",
+        "once": true,
+        "text": "A child's paper boat is stuck among the rocks, dry on one side and soaked on the other.",
+        "choices": [
+          {
+            "label": "Set it back afloat",
+            "result": "It spins once, catches a small wave, and goes. You feel like you started something.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ],
+            "item": "paper-boat"
+          },
+          {
+            "label": "Dry it on a warm stone",
+            "result": "It sits there like a little white sail. You decide to keep it.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ],
+            "item": "paper-boat"
+          }
+        ]
+      },
+      {
+        "id": "hermit-swap",
+        "text": "A hermit crab drags a shell far too big for it, then abandons it for a better one.",
+        "choices": [
+          {
+            "label": "Offer a smaller shell",
+            "result": "It considers this very seriously, then moves in without a word.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          },
+          {
+            "label": "Watch the swap",
+            "result": "Three tries, one wobble, one very dignified sideways walk. You applaud softly.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ]
+          }
+        ]
+      }
     ],
-
     "rare": [
-      { "id": "fireflies-word", "text": "The fireflies drift together and, for a breath, seem to spell something.",
-        "requires": { "weather": ["fireflies"], "time": ["night", "dusk"] },
+      {
+        "id": "fireflies-word",
+        "text": "The fireflies drift together and, for a breath, seem to spell something.",
+        "requires": {
+          "weather": [
+            "fireflies"
+          ],
+          "time": [
+            "night",
+            "dusk"
+          ]
+        },
         "choices": [
-          { "label": "Read it out loud", "result": "You say it, and they scatter, laughing in light. The word was your name.", "tokens": 4, "tags": ["curious"] },
-          { "label": "Hold very still", "result": "They settle on your sleeves like a lantern made of living stars.", "tokens": 4, "tags": ["restful"] }
-        ] },
-      { "id": "aurora-walk", "text": "The aurora comes down so low you could almost walk into it.",
-        "requires": { "biome": ["snowfields"], "time": ["night"] },
+          {
+            "label": "Read it out loud",
+            "result": "You say it, and they scatter, laughing in light. The word was your name.",
+            "tokens": 4,
+            "tags": [
+              "curious"
+            ]
+          },
+          {
+            "label": "Hold very still",
+            "result": "They settle on your sleeves like a lantern made of living stars.",
+            "tokens": 4,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "aurora-walk",
+        "text": "The aurora comes down so low you could almost walk into it.",
+        "requires": {
+          "biome": [
+            "snowfields"
+          ],
+          "time": [
+            "night"
+          ]
+        },
         "choices": [
-          { "label": "Walk toward it", "result": "You don't reach it, but the walking is the point. Green light on your hands.", "tokens": 4, "tags": ["curious"] },
-          { "label": "Lie back in the snow", "result": "The whole sky is a slow green river. You float, perfectly warm.", "tokens": 4, "tags": ["restful"] }
-        ] },
-      { "id": "mirage", "text": "On the shimmering horizon, a city of glass appears, and then politely isn't.",
-        "requires": { "biome": ["desert"], "time": ["noon"] },
+          {
+            "label": "Walk toward it",
+            "result": "You don't reach it, but the walking is the point. Green light on your hands.",
+            "tokens": 4,
+            "tags": [
+              "curious"
+            ]
+          },
+          {
+            "label": "Lie back in the snow",
+            "result": "The whole sky is a slow green river. You float, perfectly warm.",
+            "tokens": 4,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mirage",
+        "text": "On the shimmering horizon, a city of glass appears, and then politely isn't.",
+        "requires": {
+          "biome": [
+            "desert"
+          ],
+          "time": [
+            "noon"
+          ]
+        },
         "choices": [
-          { "label": "Wave at it", "result": "Someone in the heat-haze waves back. You decide not to think about that.", "tokens": 3, "tags": ["curious"] },
-          { "label": "Sit in the shade and let it pass", "result": "It melts away like sugar. You feel inexplicably refreshed.", "tokens": 3, "tags": ["restful"] }
-        ] },
-      { "id": "whale-breach", "text": "Far out on the water, a dark shape rises, hangs in the light, and slides under again.",
-        "requires": { "biome": ["coast"], "time": ["dawn", "dusk"] },
+          {
+            "label": "Wave at it",
+            "result": "Someone in the heat-haze waves back. You decide not to think about that.",
+            "tokens": 3,
+            "tags": [
+              "curious"
+            ]
+          },
+          {
+            "label": "Sit in the shade and let it pass",
+            "result": "It melts away like sugar. You feel inexplicably refreshed.",
+            "tokens": 3,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "whale-breach",
+        "text": "Far out on the water, a dark shape rises, hangs in the light, and slides under again.",
+        "requires": {
+          "biome": [
+            "coast"
+          ],
+          "time": [
+            "dawn",
+            "dusk"
+          ]
+        },
         "choices": [
-          { "label": "Wave to the whale", "result": "A long, low sound rolls across the bay. You choose to believe it was hello.", "tokens": 4, "tags": ["kind"] },
-          { "label": "Stand quietly until it's gone", "result": "The ripples take a very long time to reach the shore.", "tokens": 4, "tags": ["restful"] }
-        ] },
-      { "id": "first-snow", "text": "A single snowflake lands on your sleeve and, for a moment, keeps its whole shape.",
-        "requires": { "season": ["winter"], "weather": ["snow"] },
+          {
+            "label": "Wave to the whale",
+            "result": "A long, low sound rolls across the bay. You choose to believe it was hello.",
+            "tokens": 4,
+            "tags": [
+              "kind"
+            ]
+          },
+          {
+            "label": "Stand quietly until it's gone",
+            "result": "The ripples take a very long time to reach the shore.",
+            "tokens": 4,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "first-snow",
+        "text": "A single snowflake lands on your sleeve and, for a moment, keeps its whole shape.",
+        "requires": {
+          "season": [
+            "winter"
+          ],
+          "weather": [
+            "snow"
+          ]
+        },
         "choices": [
-          { "label": "Show it to someone", "result": "There's nobody around, so you show it to the road. The road seems impressed.", "tokens": 3, "tags": ["kind"] },
-          { "label": "Let it melt", "result": "It goes quietly. You walk lighter for a while.", "tokens": 3, "tags": ["restful"] }
-        ] },
-      { "id": "leaf-spiral", "text": "A spiral of leaves lifts off the path, turning in the wind like a slow, orange thought.",
-        "requires": { "season": ["autumn"], "weather": ["wind"] },
+          {
+            "label": "Show it to someone",
+            "result": "There's nobody around, so you show it to the road. The road seems impressed.",
+            "tokens": 3,
+            "tags": [
+              "kind"
+            ]
+          },
+          {
+            "label": "Let it melt",
+            "result": "It goes quietly. You walk lighter for a while.",
+            "tokens": 3,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "leaf-spiral",
+        "text": "A spiral of leaves lifts off the path, turning in the wind like a slow, orange thought.",
+        "requires": {
+          "season": [
+            "autumn"
+          ],
+          "weather": [
+            "wind"
+          ]
+        },
         "choices": [
-          { "label": "Step into the spiral", "result": "For a heartbeat you're inside the season itself. Then it sets you down, gently.", "tokens": 3, "tags": ["curious"] },
-          { "label": "Catch a leaf", "result": "It's the exact color of late afternoon. You press it into your journal.", "tokens": 3, "tags": ["restful"] }
-        ] },
-      { "id": "moth-lantern", "text": "A huge pale moth settles on your lantern and spreads its wings like two small moons.",
-        "requires": { "time": ["night"] },
+          {
+            "label": "Step into the spiral",
+            "result": "For a heartbeat you're inside the season itself. Then it sets you down, gently.",
+            "tokens": 3,
+            "tags": [
+              "curious"
+            ]
+          },
+          {
+            "label": "Catch a leaf",
+            "result": "It's the exact color of late afternoon. You press it into your journal.",
+            "tokens": 3,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "moth-lantern",
+        "text": "A huge pale moth settles on your lantern and spreads its wings like two small moons.",
+        "requires": {
+          "time": [
+            "night"
+          ]
+        },
         "choices": [
-          { "label": "Hold the lantern very steady", "result": "It rests there, glowing, for a quarter mile of walking.", "tokens": 3, "tags": ["kind"] },
-          { "label": "Look closer at its wings", "result": "There are tiny maps on them. Not a single one is of anywhere you've been.", "tokens": 3, "tags": ["curious"] }
-        ] },
-      { "id": "rain-concert", "text": "The rain finds a rhythm on a tin roof, a leaf, a barrel, a puddle: a whole orchestra with no conductor.",
-        "requires": { "weather": ["rain"] },
+          {
+            "label": "Hold the lantern very steady",
+            "result": "It rests there, glowing, for a quarter mile of walking.",
+            "tokens": 3,
+            "tags": [
+              "kind"
+            ]
+          },
+          {
+            "label": "Look closer at its wings",
+            "result": "There are tiny maps on them. Not a single one is of anywhere you've been.",
+            "tokens": 3,
+            "tags": [
+              "curious"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "rain-concert",
+        "text": "The rain finds a rhythm on a tin roof, a leaf, a barrel, a puddle: a whole orchestra with no conductor.",
+        "requires": {
+          "weather": [
+            "rain"
+          ]
+        },
         "choices": [
-          { "label": "Conduct, just a little", "result": "The storm swells and softens at your hands. Nobody sees. It is perfect.", "tokens": 3, "tags": ["curious"], "collect": { "kind": "songs", "id": "rain-on-leaves" } },
-          { "label": "Stand under the eaves and listen", "result": "Dry, warm, wholly present. You wouldn't trade this for a sunny day.", "tokens": 3, "tags": ["restful"], "collect": { "kind": "songs", "id": "rain-on-leaves" } }
-        ] }
+          {
+            "label": "Conduct, just a little",
+            "result": "The storm swells and softens at your hands. Nobody sees. It is perfect.",
+            "tokens": 3,
+            "tags": [
+              "curious"
+            ],
+            "collect": {
+              "kind": "songs",
+              "id": "rain-on-leaves"
+            }
+          },
+          {
+            "label": "Stand under the eaves and listen",
+            "result": "Dry, warm, wholly present. You wouldn't trade this for a sunny day.",
+            "tokens": 3,
+            "tags": [
+              "restful"
+            ],
+            "collect": {
+              "kind": "songs",
+              "id": "rain-on-leaves"
+            }
+          }
+        ]
+      },
+      {
+        "id": "second-star-glimpse",
+        "once": true,
+        "requires": {
+          "flag": "story_ended"
+        },
+        "text": "The clouds part for one breath, and a star hangs low on the horizon, further than the sea should allow.",
+        "choices": [
+          {
+            "label": "Make a wish",
+            "result": "You do not say it out loud. The star seems to nod anyway.",
+            "tokens": 4,
+            "tags": [
+              "curious"
+            ]
+          },
+          {
+            "label": "Just look",
+            "result": "You do not wish for anything. For once, it is enough.",
+            "tokens": 4,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "night-market",
+        "requires": {
+          "time": [
+            "night"
+          ]
+        },
+        "text": "A lantern market has appeared in a clearing, vendors humming, and nothing has a price.",
+        "choices": [
+          {
+            "label": "Trade a story for a story",
+            "result": "You tell the one about the bridge. They tell you one about a fox. You are even.",
+            "tokens": 4,
+            "tags": [
+              "kind"
+            ]
+          },
+          {
+            "label": "Browse quietly",
+            "result": "Every stall smiles at you and lets you be. It is the kindest kind of shopping.",
+            "tokens": 4,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      }
     ],
-
     "callbacks": [
-      { "id": "bird-returns", "once": true, "requires": { "flag": "helped_bird" },
+      {
+        "id": "bird-returns",
+        "once": true,
+        "requires": {
+          "flag": "helped_bird"
+        },
         "text": "A small bird lands on your shoulder, one wing tucked just so. It's the one you carried to the tree. It has brought a friend.",
         "choices": [
-          { "label": "Let them stay a while", "result": "They ride along for a mile, chattering about everything they've seen since.", "tokens": 2, "tags": ["restful"], "collect": { "kind": "birds", "id": "wren" } },
-          { "label": "Hold out a few seeds", "result": "Both birds eat from your palm. You feel enormously trusted.", "tokens": 2, "tags": ["kind"], "collect": { "kind": "birds", "id": "wren" } }
-        ] },
-      { "id": "fox-returns", "once": true, "requires": { "flag": "fox_friend" },
+          {
+            "label": "Let them stay a while",
+            "result": "They ride along for a mile, chattering about everything they've seen since.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ],
+            "collect": {
+              "kind": "birds",
+              "id": "wren"
+            }
+          },
+          {
+            "label": "Hold out a few seeds",
+            "result": "Both birds eat from your palm. You feel enormously trusted.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ],
+            "collect": {
+              "kind": "birds",
+              "id": "wren"
+            }
+          }
+        ]
+      },
+      {
+        "id": "fox-returns",
+        "once": true,
+        "requires": {
+          "flag": "fox_friend"
+        },
         "text": "The fox is waiting at the bend, its tiny lantern set neatly beside it, as if it had been saving the matches for you.",
         "choices": [
-          { "label": "Light it together", "result": "The flame catches. For a while the fox walks beside you, and the road is a little less long.", "tokens": 3, "tags": ["kind"], "item": "paper-lantern" },
-          { "label": "Follow the fox", "result": "It leads you off the road to a hill with a perfect view, then trots back as if that was all.", "tokens": 2, "tags": ["curious"] }
-        ] },
-      { "id": "mailbox-open-again", "once": true, "requires": { "flag": "mailbox_open" },
+          {
+            "label": "Light it together",
+            "result": "The flame catches. For a while the fox walks beside you, and the road is a little less long.",
+            "tokens": 3,
+            "tags": [
+              "kind"
+            ],
+            "item": "paper-lantern"
+          },
+          {
+            "label": "Follow the fox",
+            "result": "It leads you off the road to a hill with a perfect view, then trots back as if that was all.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mailbox-open-again",
+        "once": true,
+        "requires": {
+          "flag": "mailbox_open"
+        },
         "text": "Another mailbox, another note. This one says: 'You didn't have to open the last one, but you did. That's why I wrote again.'",
         "choices": [
-          { "label": "Keep the note", "result": "It goes in your pocket, next to the first. You're starting a collection.", "tokens": 2, "tags": ["curious"] },
-          { "label": "Write a reply and leave it inside", "result": "Not sure who it's for. You hope it finds them.", "tokens": 3, "tags": ["kind"] }
-        ] },
-      { "id": "mailbox-closed-again", "once": true, "requires": { "flag": "mailbox_closed" },
+          {
+            "label": "Keep the note",
+            "result": "It goes in your pocket, next to the first. You're starting a collection.",
+            "tokens": 2,
+            "tags": [
+              "curious"
+            ]
+          },
+          {
+            "label": "Write a reply and leave it inside",
+            "result": "Not sure who it's for. You hope it finds them.",
+            "tokens": 3,
+            "tags": [
+              "kind"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mailbox-closed-again",
+        "once": true,
+        "requires": {
+          "flag": "mailbox_closed"
+        },
         "text": "Another mailbox, and a flag raised on it. This one is addressed: 'For when you're ready.'",
         "choices": [
-          { "label": "Open it, now that you're ready", "result": "Inside: a single token and a drawing of the road you're on. You didn't know someone was drawing it.", "tokens": 3, "tags": ["curious"] },
-          { "label": "Still not ready. That's allowed.", "result": "The flag lowers itself politely. The mailbox will wait.", "tokens": 2, "tags": ["restful"] }
-        ] },
-      { "id": "chime-tree", "once": true, "requires": { "flag": "chime_hung" },
+          {
+            "label": "Open it, now that you're ready",
+            "result": "Inside: a single token and a drawing of the road you're on. You didn't know someone was drawing it.",
+            "tokens": 3,
+            "tags": [
+              "curious"
+            ]
+          },
+          {
+            "label": "Still not ready. That's allowed.",
+            "result": "The flag lowers itself politely. The mailbox will wait.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "chime-tree",
+        "once": true,
+        "requires": {
+          "flag": "chime_hung"
+        },
         "text": "You hear it before you see it: the slightly out-of-tune chime you hung. Somebody has added a second one beside it.",
         "choices": [
-          { "label": "Add a third", "result": "The three of them argue sweetly in the wind.", "tokens": 2, "tags": ["kind"] },
-          { "label": "Stand and listen to the chorus", "result": "A stranger's chime and yours, almost in tune. Almost is the best part.", "tokens": 2, "tags": ["restful"], "collect": { "kind": "songs", "id": "chime-song" } }
-        ] },
-      { "id": "cairn-returns", "once": true, "requires": { "flag": "cairn_built", "biome": ["mountains"] },
+          {
+            "label": "Add a third",
+            "result": "The three of them argue sweetly in the wind.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          },
+          {
+            "label": "Stand and listen to the chorus",
+            "result": "A stranger's chime and yours, almost in tune. Almost is the best part.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ],
+            "collect": {
+              "kind": "songs",
+              "id": "chime-song"
+            }
+          }
+        ]
+      },
+      {
+        "id": "cairn-returns",
+        "once": true,
+        "requires": {
+          "flag": "cairn_built",
+          "biome": [
+            "mountains"
+          ]
+        },
         "text": "Your stone is still on the cairn, and a dozen more have joined it.",
         "choices": [
-          { "label": "Add another", "result": "The cairn is a sentence, and everyone who stops adds a word.", "tokens": 2, "tags": ["kind"] },
-          { "label": "Sit with it a while", "result": "A long time ago somebody put the first stone here. You think of them kindly.", "tokens": 2, "tags": ["restful"] }
-        ] }
+          {
+            "label": "Add another",
+            "result": "The cairn is a sentence, and everyone who stops adds a word.",
+            "tokens": 2,
+            "tags": [
+              "kind"
+            ]
+          },
+          {
+            "label": "Sit with it a while",
+            "result": "A long time ago somebody put the first stone here. You think of them kindly.",
+            "tokens": 2,
+            "tags": [
+              "restful"
+            ]
+          }
+        ]
+      }
     ]
   }
 }

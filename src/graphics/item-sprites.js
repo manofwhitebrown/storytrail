@@ -25,6 +25,12 @@ const S = {
   "sun-bottle":    ["...nn...", "...ww...", "..wyyw..", ".wyyyyw.", ".wyoyyw.", ".wyyyyw.", ".wwwwww.", "........"],
   "leaf-garland":  ["kkkkkkkk", "r..o..rk", "rr.oo.rr", "r..o..r.", "........", "........", "........", "........"],
   "frost-lantern": ["...ll...", "..lwwl..", ".lwwwwl.", ".lwllwl.", ".lwllwl.", ".lwwwwl.", "..lwwl..", "...ll..."],
+  "wandering-compass": [".mmmmmm.", "mwwkwwwm", "mwwkkwwm", "mwrrkwwm", "mwwrrwwm", "mwwwrwwm", ".mmmmmm.", "........"],
+  "firefly-jar":   ["..nnnn..", ".llllll.", "l..y...l", "l.y..y.l", "l...y..l", "l.y....l", "llllllll", "........"],
+  "woven-basket":  ["..tttt..", ".t....t.", "t......t", "tntntntn", "ntntntnt", "tntntntn", "ntntntnt", ".tttttt."],
+  "storm-lantern": ["...ss...", "..ssss..", ".syyyys.", ".syyyys.", ".syoyys.", ".syyyys.", ".ssssss.", "..ssss.."],
+  "tea-tin":       ["........", "rrrrrrrr", "rwwwwwwr", "rwoowwwr", "rwwwwwwr", "rwwwwwwr", "rrrrrrrr", "........"],
+  "paper-boat":    ["........", "...w....", "..www...", "..wwww..", "wwwwwwww", ".wwwwww.", "..bbbb..", "bbbbbbbb"],
 };
 const GIFT = ["...pp.pp", "....pp..", "bbbbbbbb", "bbbppbbb", "bbbppbbb", "bbbppbbb", "bbbppbbb", "bbbbbbbb"];
 

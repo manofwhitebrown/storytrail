@@ -3,6 +3,7 @@
 ## Unreleased: boxes, and optional real files
 - Look: the traveler, companions (fox, owl, hare), trees, bushes, cacti, hills, pebbles, landmarks and the camp (tent, crate, rope, fire) are now built from boxes with a lighter top and darker side (`src/graphics/blocks.js`). Keepsakes are 8x8 box sprites (`src/graphics/item-sprites.js`); an item without one shows as a gift box.
 - Optional real files (`src/core/assets.js`, `docs/media.md`, `public/media/manifest.json`): list your own images, sound effects or fonts and they replace the built-in ones; anything missing falls back silently. Ships with nothing listed.
+- More to find: 17 new road events (two per place, three common, two rare, including a post-ending glimpse of the second star) and six new keepsakes with box sprites: wandering compass, firefly jar, woven basket, storm lantern, tea tin, paper boat.
 - Boot prints: the traveler leaves faint box-shaped footprints on the path that fade behind you.
 - Test: `tests/blocks.test.js` (every item has a valid sprite; the game works with no media files).
 
